@@ -21,8 +21,8 @@
         <javaee7.web.spec.version>1.0.3.Final</javaee7.web.spec.version>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <node.version>v8.9.0</node.version>
-        <yarn.version>v1.3.2</yarn.version>
+        <node.version>v10.15.3</node.version>
+        <yarn.version>v1.15.2</yarn.version>
         <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
         <environment>prod</environment>
     </properties>

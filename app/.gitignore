@@ -9,3 +9,4 @@
 target
 audit.log
 microprofile-hollowswarm.jar
+src/main/frontend/package-lock.json

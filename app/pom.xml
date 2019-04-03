@@ -64,14 +64,12 @@
             <version>1.0.2.Final</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
             <version>1.0.1.Final</version>
             <scope>provided</scope>
         </dependency>
-
 
         <dependency>
             <groupId>org.jboss.spec.javax.interceptor</groupId>
@@ -105,23 +103,6 @@
             <version>1.7.12</version>
         </dependency>
 
-
-        <!-- Optional, but highly recommended -->
-        <!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA) JPA from JUnit/TestNG -->
-        <dependency>
-            <groupId>org.jboss.arquillian.core</groupId>
-            <artifactId>arquillian-core-api</artifactId>
-            <version>${arquillian.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <version>${arquillian.version}</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
@@ -135,13 +116,13 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Needed for running tests (you may also use TestNG) -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.10</version>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-transaction-jta</artifactId>
+            <version>1.0.5</version>
             <scope>test</scope>
         </dependency>
+
 
         <dependency>
             <groupId>org.jboss.arquillian.core</groupId>
@@ -149,6 +130,7 @@
             <version>${arquillian.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
@@ -157,33 +139,110 @@
         </dependency>
 
         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-arquillian-container-managed</artifactId>
+            <version>${wildfly.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>sun.jdk</groupId>
+                    <artifactId>jconsole</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-transaction-jta</artifactId>
+            <version>1.0.5</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
             <version>${arquillian.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
-            <version>1.0.0.CR9</version>
-            <scope>test</scope>
+            <groupId>org.jboss</groupId>
+            <artifactId>jboss-common-core</artifactId>
+            <version>2.5.0.Final</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-core</artifactId>
-            <version>2.3.5.Final</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
+    <repositories>
+        <!-- The JBoss Community public repository is a composite repository of several major repositories -->
+        <!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
+        <repository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+            <!-- These optional flags are designed to speed up your builds by reducing remote server calls -->
+            <releases>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jboss-public-repository</id>
+            <name>JBoss Repository</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public</url>
+            <releases>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <java.util.logging.config.file>
+                            ${project.build.testOutputDirectory}/logging.properties
+                        </java.util.logging.config.file>
+                        <derby.stream.error.file>
+                            ${project.build.directory}/derby.log
+                        </derby.stream.error.file>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
             <id>run-tests</id>
-
-            <!-- We add the JBoss repository as we need the JBoss AS connectors for Arquillian -->
             <repositories>
                 <!-- The JBoss Community public repository is a composite repository of several major repositories -->
                 <!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
@@ -214,12 +273,32 @@
             </pluginRepositories>
 
             <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                    </testResource>
+                </testResources>
+
                 <plugins>
                     <plugin>
                         <artifactId>maven-war-plugin</artifactId>
                         <version>2.6</version>
                         <configuration>
                             <failOnMissingWebXml>false</failOnMissingWebXml>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.1</version>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <java.util.logging.config.file>
+                                    ${project.build.testOutputDirectory}/logging.properties
+                                </java.util.logging.config.file>
+                                <derby.stream.error.file>
+                                    ${project.build.directory}/derby.log
+                                </derby.stream.error.file>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -300,7 +379,26 @@
                         <artifactId>wildfly-maven-plugin</artifactId>
                         <version>1.0.2.Final</version>
                     </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.1</version>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <java.util.logging.config.file>
+                                    ${project.build.testOutputDirectory}/logging.properties
+                                </java.util.logging.config.file>
+                                <derby.stream.error.file>
+                                    ${project.build.directory}/derby.log
+                                </derby.stream.error.file>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
                 </plugins>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                    </testResource>
+                </testResources>
             </build>
         </profile>
     </profiles>

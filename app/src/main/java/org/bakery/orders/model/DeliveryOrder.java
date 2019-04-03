@@ -10,7 +10,7 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Order {
+public class DeliveryOrder {
 
     @Id
     private String id;

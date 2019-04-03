@@ -8,7 +8,7 @@ build:
 .PHONY: run
 run:
 	test -f $(SWARM_JAR) || wget -O $(SWARM_JAR) $(SWARM_URL)
-	java -jar $(SWARM_JAR) ./target/*.war
+	java -jar $(SWARM_JAR) ./bakery-orders-web/target/*.war
 
 .PHONY: open
 open:

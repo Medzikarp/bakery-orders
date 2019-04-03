@@ -13,7 +13,7 @@
         <non-jta-data-source>java:jboss/datasources/ExampleDS</non-jta-data-source>
         <properties>
             <!-- Properties for Hibernate -->
-            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>

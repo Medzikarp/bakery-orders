@@ -1,9 +1,7 @@
-package org.bakery.orders.model;
+package org.bakery.orders.entity;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Lukas Kotol on 30.03.2019.
@@ -11,17 +9,23 @@ import javax.persistence.Id;
 
 @Entity
 public class DeliveryOrder {
-
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @Column
     private String name;
 
-    public String getId() {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_user")
+    private User user;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

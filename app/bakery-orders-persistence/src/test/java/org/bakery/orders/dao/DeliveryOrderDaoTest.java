@@ -1,6 +1,5 @@
 package org.bakery.orders.dao;
 
-import org.bakery.orders.dao.DeliveryOrderDao;
 import org.bakery.orders.entity.DeliveryOrder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -9,10 +8,13 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
+import javax.validation.ConstraintViolationException;
 
 
 /**
@@ -33,6 +35,9 @@ public class DeliveryOrderDaoTest {
 
     @Inject
     private DeliveryOrderDao deliveryOrderDao;
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void beforeEach() {
@@ -73,10 +78,17 @@ public class DeliveryOrderDaoTest {
         Assert.assertEquals(0, deliveryOrderDao.findAll().size());
     }
 
+    @Test
+    public void searchByUserNullTest() {
+        expectedException.expect(ConstraintViolationException.class);
+        deliveryOrderDao.searchByUser(null);
+    }
+
     private DeliveryOrder getSampleOrder() {
         DeliveryOrder deliveryOrder = new DeliveryOrder();
         deliveryOrder.setName("Objednavka 1");
         return deliveryOrder;
     }
+
 
 }

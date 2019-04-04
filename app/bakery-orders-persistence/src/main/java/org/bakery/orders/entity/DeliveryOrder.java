@@ -16,9 +16,7 @@ public class DeliveryOrder {
     @Column
     private String name;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_user")
     private User user;
 
     public Long getId() {
@@ -35,5 +33,22 @@ public class DeliveryOrder {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "DeliveryOrder{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

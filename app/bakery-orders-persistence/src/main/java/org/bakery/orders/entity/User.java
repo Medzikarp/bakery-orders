@@ -15,9 +15,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "user")
-    private List<DeliveryOrder> deliveryOrders = new ArrayList<DeliveryOrder>();
-
     @Column
     private String name;
 
@@ -27,14 +24,6 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<DeliveryOrder> getDeliveryOrders() {
-        return deliveryOrders;
-    }
-
-    public void setDeliveryOrders(List<DeliveryOrder> deliveryOrders) {
-        this.deliveryOrders = deliveryOrders;
     }
 
     public String getName() {

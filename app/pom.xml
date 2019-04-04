@@ -5,6 +5,7 @@
     <modules>
         <module>bakery-orders-persistence</module>
         <module>bakery-orders-web</module>
+        <module>bakery-orders-service</module>
     </modules>
 
     <groupId>org</groupId>
@@ -18,6 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javaee7.web.spec.version>1.0.3.Final</javaee7.web.spec.version>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <version.common-io>2.5</version.common-io>
         <maven.compiler.source>1.8</maven.compiler.source>
         <node.version>v10.15.3</node.version>
         <yarn.version>v1.15.2</yarn.version>
@@ -25,7 +27,15 @@
         <arquillian.version>1.1.5.Final</arquillian.version>
         <environment>prod</environment>
         <wildfly.version>8.2.0.Final</wildfly.version>
+        <version.org.jboss.logging>3.2.0.Final</version.org.jboss.logging>
+        <version.org.jboss.logging.annotations>2.0.1.Final</version.org.jboss.logging.annotations>
     </properties>
+
+    <parent>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+        <version>7</version>
+    </parent>
 
     <dependencies>
         <dependency>
@@ -96,12 +106,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.12</version>
-        </dependency>
-
-        <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
             <version>2.2</version>
@@ -163,7 +167,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
@@ -176,6 +179,11 @@
             <version>2.5.0.Final</version>
         </dependency>
 
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${version.common-io}</version>
+        </dependency>
     </dependencies>
     <repositories>
         <!-- The JBoss Community public repository is a composite repository of several major repositories -->

@@ -8,17 +8,6 @@ import java.util.Optional;
 /**
  * Created by Lukas Kotol on 03.04.2019.
  */
-public interface UserDao {
-    void save(User deliveryOrder);
+public interface UserDao extends GenericDao<User, Long> {
 
-    Optional<User> get(long id);
-
-    List<User> getAll();
-
-
-    void update(User user);
-
-    void delete(User user);
-
-    void deleteAll();
 }

@@ -17,3 +17,4 @@ After the project was build type
 ```bash
 make open run
 ```
+p

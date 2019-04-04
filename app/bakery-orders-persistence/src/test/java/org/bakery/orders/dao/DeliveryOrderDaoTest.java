@@ -36,41 +36,41 @@ public class DeliveryOrderDaoTest {
 
     @Before
     public void beforeEach() {
-        deliveryOrderDao.deleteAll();
+        deliveryOrderDao.removeAll();
     }
 
     @Test
     public void createOrderTest() {
         DeliveryOrder deliveryOrder = getSampleOrder();
-        deliveryOrderDao.save(deliveryOrder);
-        Assert.assertEquals(1, deliveryOrderDao.getAll().size());
-        Assert.assertEquals(deliveryOrder.getName(), deliveryOrderDao.getAll().get(0).getName());
+        deliveryOrderDao.create(deliveryOrder);
+        Assert.assertEquals(1, deliveryOrderDao.findAll().size());
+        Assert.assertEquals(deliveryOrder.getName(), deliveryOrderDao.findAll().get(0).getName());
     }
 
 
     @Test
     public void deleteAllOrderTest() {
-        deliveryOrderDao.save(getSampleOrder());
-        deliveryOrderDao.deleteAll();
-        Assert.assertEquals(0, deliveryOrderDao.getAll().size());
+        deliveryOrderDao.create(getSampleOrder());
+        deliveryOrderDao.removeAll();
+        Assert.assertEquals(0, deliveryOrderDao.findAll().size());
     }
 
     @Test
     public void updateOrderTest() {
         DeliveryOrder deliveryOrder = getSampleOrder();
-        deliveryOrderDao.save(deliveryOrder);
+        deliveryOrderDao.create(deliveryOrder);
         deliveryOrder.setName("Zmena");
         deliveryOrderDao.update(deliveryOrder);
-        Assert.assertEquals(1, deliveryOrderDao.getAll().size());
-        Assert.assertEquals(deliveryOrder.getName(), deliveryOrderDao.getAll().get(0).getName());
+        Assert.assertEquals(1, deliveryOrderDao.findAll().size());
+        Assert.assertEquals(deliveryOrder.getName(), deliveryOrderDao.findAll().get(0).getName());
     }
 
     @Test
     public void deleteOrderTest() {
         DeliveryOrder deliveryOrder = getSampleOrder();
-        deliveryOrderDao.save(deliveryOrder);
-        deliveryOrderDao.delete(deliveryOrder);
-        Assert.assertEquals(0, deliveryOrderDao.getAll().size());
+        deliveryOrderDao.create(deliveryOrder);
+        deliveryOrderDao.remove(deliveryOrder.getId());
+        Assert.assertEquals(0, deliveryOrderDao.findAll().size());
     }
 
     private DeliveryOrder getSampleOrder() {

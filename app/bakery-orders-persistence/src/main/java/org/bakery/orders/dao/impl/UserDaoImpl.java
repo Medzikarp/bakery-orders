@@ -16,37 +16,8 @@ import java.util.Optional;
 
 @ApplicationScoped
 @Transactional
-public class UserDaoImpl implements UserDao {
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    public void save(User user) {
-        entityManager.persist(user);
-    }
-
-    @Override
-    public Optional<User> get(long id) {
-        return Optional.ofNullable(entityManager.find(User.class, id));
-    }
-
-    @Override
-    public List<User> getAll() {
-        return entityManager.createQuery("SELECT u FROM User u").getResultList();
-    }
-
-    @Override
-    public void update(User user) {
-        entityManager.merge(user);
-    }
-
-    @Override
-    public void delete(User user) {
-        user = entityManager.merge(user);
-        entityManager.remove(user);
-    }
-
-    @Override
-    public void deleteAll() {
-        entityManager.createQuery("DELETE FROM User u").executeUpdate();
+public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao {
+    public UserDaoImpl() {
+        super(User.class);
     }
 }

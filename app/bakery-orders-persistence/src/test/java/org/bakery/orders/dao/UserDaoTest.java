@@ -34,40 +34,40 @@ public class UserDaoTest {
 
     @Before
     public void beforeEach() {
-        userDao.deleteAll();
+        userDao.removeAll();
     }
 
     @Test
     public void createOrderTest() {
         User user = getSampleUser();
-        userDao.save(user);
-        Assert.assertEquals(1, userDao.getAll().size());
-        Assert.assertEquals(user.getName(), userDao.getAll().get(0).getName());
+        userDao.create(user);
+        Assert.assertEquals(1, userDao.findAll().size());
+        Assert.assertEquals(user.getName(), userDao.findAll().get(0).getName());
     }
 
     @Test
     public void deleteAllUsersTest() {
-        userDao.save(getSampleUser());
-        userDao.deleteAll();
-        Assert.assertEquals(0, userDao.getAll().size());
+        userDao.create(getSampleUser());
+        userDao.removeAll();
+        Assert.assertEquals(0, userDao.findAll().size());
     }
 
     @Test
     public void updateUserTest() {
         User user = getSampleUser();
-        userDao.save(user);
+        userDao.create(user);
         user.setName("Petr Maly");
         userDao.update(user);
-        Assert.assertEquals(1, userDao.getAll().size());
-        Assert.assertEquals(user.getName(), userDao.getAll().get(0).getName());
+        Assert.assertEquals(1, userDao.findAll().size());
+        Assert.assertEquals(user.getName(), userDao.findAll().get(0).getName());
     }
 
     @Test
     public void deleteUserTest() {
         User user = getSampleUser();
-        userDao.save(user);
-        userDao.delete(user);
-        Assert.assertEquals(0, userDao.getAll().size());
+        userDao.create(user);
+        userDao.remove(user.getId());
+        Assert.assertEquals(0, userDao.findAll().size());
     }
 
     private User getSampleUser() {

@@ -50,7 +50,6 @@ public class DeliveryOrderServiceTest {
     }
 
     @Test
-    @Ignore
     public void addUserToDeliveryOrderTest() {
         DeliveryOrder deliveryOrder = getSampleOrder();
         deliveryOrderService.create(deliveryOrder);

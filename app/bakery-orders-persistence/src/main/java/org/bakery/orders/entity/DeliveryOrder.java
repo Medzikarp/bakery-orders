@@ -13,7 +13,7 @@ public class DeliveryOrder extends PersistentObject {
     @Column
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
 

@@ -5,12 +5,15 @@ import org.bakery.orders.dao.GenericDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author <a href="mailto:martin.styk@gmail.com">Martin Styk</a>
  */
+
+
 public abstract class GenericDaoImpl<T, U> implements GenericDao<T, U>, Serializable {
 
     @PersistenceContext

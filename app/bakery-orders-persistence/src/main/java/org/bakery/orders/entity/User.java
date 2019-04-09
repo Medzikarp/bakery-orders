@@ -1,8 +1,8 @@
 package org.bakery.orders.entity;
 
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 /**
  * Created by Lukas Kotol on 03.04.2019.
@@ -12,18 +12,15 @@ import javax.validation.constraints.NotNull;
 public class User extends PersistentObject {
 
     @Column
-    @NotNull
     private String name;
 
     @Column
     private String email;
 
     @Column
-    @NotNull
     private String passwordHash;
 
     @Column
-    @NotNull
     private String deliveryAddress;
 
     @Column

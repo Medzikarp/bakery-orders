@@ -1,20 +1,13 @@
-# Example application for PV243
+# Bakery orders web application
 
-### Building
+## Configure
+- Configure arquillian.xml file inside resources test folder to your local installed Wildfly
 
-```bash
-mvn package
-```
-or 
-```bash
-make build
-```
+## Run without locally installed Wildfly
+- mvn clean install
+- inside bakery-orders-web run mvn clean wildfly:run
 
-### Running
-
-After the project was build type
-
-```bash
-make open run
-```
-p
+## Run with locally install WildFly
+- mvn clean package
+- copy created .war file inside bakery-orders-web/target to wildfly/standalone/deployments
+- inside wildfly/bin run standalone.bat or standalone.sh

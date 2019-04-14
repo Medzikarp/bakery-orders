@@ -24,9 +24,9 @@ public class DeliveryOrderDaoImpl extends GenericDaoImpl<DeliveryOrder, Long> im
     }
 
     @Override
-    public List<DeliveryOrder> searchByUser(@NotNull User user) {
+    public List<DeliveryOrder> searchByUser(@NotNull Long id) {
         TypedQuery<DeliveryOrder> q = em.createQuery("SELECT o FROM DeliveryOrder o WHERE o.user = :userId", DeliveryOrder.class)
-                .setParameter("userId", user.getId());
+                .setParameter("userId", id);
         return q.getResultList();
     }
 }

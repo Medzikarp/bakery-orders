@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());
 
-
     @Inject
     private UserDao userDao;
 
@@ -43,7 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void remove(User user) {
         LOGGER.info("Removing User with id " + user.getId());
-        deliveryOrderDao.searchByUser(user).forEach(deliveryOrder -> deliveryOrder.setUser(null));
+        deliveryOrderDao.searchByUser(user.getId()).forEach(deliveryOrder -> deliveryOrder.setUser(null));
         userDao.remove(user.getId());
     }
 

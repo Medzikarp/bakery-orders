@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 
 @Path("/order")
@@ -19,10 +20,48 @@ public class DeliveryOrderEndpoint {
     private DeliveryOrderService deliveryOrderService;
 
     @GET
-    @Path("{id}")
+    @Path("/user/{id}")
+    public Response getOrdersByUser(@PathParam("id") Long id) {
+        List<DeliveryOrder> deliveryOrders;
+        if (id == null) {
+            deliveryOrders = deliveryOrderService.findAll();
+        } else {
+            deliveryOrders = deliveryOrderService.searchByUser(id);
+        }
+        return Response.ok(deliveryOrders).build();
+    }
+
+    @GET
+    @Path("/{id}")
     public Response get(@PathParam("id") Long id) {
         DeliveryOrder deliveryOrder = deliveryOrderService.findById(id);
         return Response.ok(deliveryOrder).build();
     }
 
+    @POST
+    public Response createOrder(DeliveryOrder deliveryOrder) {
+        Response.ResponseBuilder builder;
+        try {
+            DeliveryOrder created = deliveryOrderService.create(deliveryOrder);
+            builder = Response.ok(created);
+        } catch (Exception e) {
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());
+        }
+        return builder.build();
+    }
+
+    @POST
+    @Path("/{id}")
+    public Response updateOrder(@PathParam("id") Long id, DeliveryOrder deliveryOrder) {
+        Response.ResponseBuilder builder;
+        DeliveryOrder oldDeliveryOrder = deliveryOrderService.findById(id);
+        deliveryOrder.setId(oldDeliveryOrder.getId());
+        try {
+            DeliveryOrder updated = deliveryOrderService.update(deliveryOrder);
+            builder = Response.ok(updated);
+        } catch (Exception e) {
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());
+        }
+        return builder.build();
+    }
 }

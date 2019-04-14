@@ -66,9 +66,9 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
     }
 
     @Override
-    public List<DeliveryOrder> searchByUser(User user) {
-        LOGGER.info("Searching for all DeliveryOrders with user id " + user.getId());
-        return deliveryOrderDao.searchByUser(user);
+    public List<DeliveryOrder> searchByUser(Long id) {
+        LOGGER.info("Searching for all DeliveryOrders with user id " + id);
+        return deliveryOrderDao.searchByUser(id);
     }
 
     @Override

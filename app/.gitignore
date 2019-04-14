@@ -1,0 +1,14 @@
+.project
+.classpath
+.settings
+*.ipr
+.idea
+*.iws
+*.iml
+*~
+target
+audit.log
+microprofile-hollowswarm.jar
+src/main/frontend/package-lock.json
+bakery-orders-service/src/test/resources/arquillian.xml
+bakery-orders-persistence/src/test/resources/arquillian.xml

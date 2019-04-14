@@ -7,7 +7,7 @@
 - mvn clean install
 - inside bakery-orders-web run mvn clean wildfly:run
 
-## Run with locally install WildFly
+## Run with locally installed WildFly
 - mvn clean package
 - copy created .war file inside bakery-orders-web/target to wildfly/standalone/deployments
 - inside wildfly/bin run standalone.bat or standalone.sh

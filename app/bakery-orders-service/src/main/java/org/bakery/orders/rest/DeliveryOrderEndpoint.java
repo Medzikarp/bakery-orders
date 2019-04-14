@@ -1,26 +1,28 @@
 package org.bakery.orders.rest;
 
 
+import org.bakery.orders.entity.DeliveryOrder;
 import org.bakery.orders.service.DeliveryOrderService;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-@Path("/orders")
+@Path("/order")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class DeliveryOrderEndpoint {
 
     @Inject
     private DeliveryOrderService deliveryOrderService;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createOrder() {
-        return Response.ok("test").build();
+    @Path("{id}")
+    public Response get(@PathParam("id") Long id) {
+        DeliveryOrder deliveryOrder = deliveryOrderService.findById(id);
+        return Response.ok(deliveryOrder).build();
     }
 
 }

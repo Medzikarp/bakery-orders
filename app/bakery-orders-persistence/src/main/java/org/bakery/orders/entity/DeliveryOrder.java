@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Lukas Kotol on 30.03.2019.
@@ -26,6 +28,9 @@ public class DeliveryOrder extends PersistentObject {
 
     @Column
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "deliveryOrder")
+    private Set<DeliveryOrderProduct> deliveryOrderProducts = new HashSet<>();
 
     public String getName() {
         return name;

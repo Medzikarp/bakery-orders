@@ -1,6 +1,5 @@
 package org.bakery.orders.dao;
 
-import org.bakery.orders.dao.UserDao;
 import org.bakery.orders.entity.User;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;

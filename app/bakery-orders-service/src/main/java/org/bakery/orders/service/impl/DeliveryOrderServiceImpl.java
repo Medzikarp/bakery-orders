@@ -10,6 +10,7 @@ import org.jboss.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -29,6 +30,8 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
 
     @Override
     public DeliveryOrder create(DeliveryOrder deliveryOrder) {
+        deliveryOrder.setCreatedAt(LocalDateTime.now());
+        deliveryOrder.setUpdatedAt();
         DeliveryOrder created = deliveryOrderDao.create(deliveryOrder);
         LOGGER.info("DeliveryOrder created with id " + deliveryOrder.getId());
         return created;

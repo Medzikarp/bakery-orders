@@ -2,6 +2,7 @@ package org.bakery.orders.entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -20,6 +21,7 @@ public class DeliveryOrder extends PersistentObject {
     private User user;
 
     @Column
+    @NotNull
     private LocalDateTime createdAt;
 
     @Column
@@ -51,6 +53,10 @@ public class DeliveryOrder extends PersistentObject {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @PreUpdate

@@ -30,12 +30,4 @@ public class DeliveryOrderDaoImpl extends GenericDaoImpl<DeliveryOrder, Long> im
                 .setParameter("userId", id);
         return q.getResultList();
     }
-
-    @Override
-    public DeliveryOrder create(DeliveryOrder deliveryOrder) {
-        deliveryOrder.setCreatedAt(LocalDateTime.now());
-        deliveryOrder.setUpdatedAt();
-        em.persist(deliveryOrder);
-        return deliveryOrder;
-    }
 }

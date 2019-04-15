@@ -3,6 +3,8 @@ package org.bakery.orders.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  * Created by Lukas Kotol on 03.04.2019.
@@ -26,6 +28,9 @@ public class User extends PersistentObject {
     @Column
     private String phone;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 8)
+    private UserRole userRole;
 
     public String getName() {
         return name;
@@ -68,4 +73,9 @@ public class User extends PersistentObject {
     }
 
 
+}
+
+enum UserRole {
+    ADMIN,
+    CUSTOMER
 }

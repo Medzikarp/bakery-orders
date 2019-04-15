@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
+import java.time.LocalDateTime;
 
 
 /**
@@ -87,6 +88,7 @@ public class DeliveryOrderDaoTest {
     private DeliveryOrder getSampleOrder() {
         DeliveryOrder deliveryOrder = new DeliveryOrder();
         deliveryOrder.setName("Objednavka 1");
+        deliveryOrder.setCreatedAt(LocalDateTime.now());
         return deliveryOrder;
     }
 

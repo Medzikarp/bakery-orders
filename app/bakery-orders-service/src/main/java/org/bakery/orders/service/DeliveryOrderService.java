@@ -11,5 +11,4 @@ import java.util.List;
  */
 public interface DeliveryOrderService extends GenericCRUDService<DeliveryOrder, Long> {
     List<DeliveryOrder> searchByUser(Long id);
-    void addUserToDeliveryOrder(@NotNull Long deliveryOrderId, @NotNull Long userId);
 }

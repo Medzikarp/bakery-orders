@@ -70,14 +70,4 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
         LOGGER.info("Searching for all DeliveryOrders with user id " + id);
         return deliveryOrderDao.searchByUser(id);
     }
-
-    @Override
-    public void addUserToDeliveryOrder(@NotNull Long deliveryOrderId, @NotNull Long userId) {
-        LOGGER.info("Adding user " + userId + " to DeliveryOrder " + deliveryOrderId);
-        DeliveryOrder deliveryOrder = findById(deliveryOrderId);
-        User user = userDao.find(userId);
-        deliveryOrder.setUser(user);
-        deliveryOrderDao.update(deliveryOrder);
-    }
-
 }

@@ -2,12 +2,12 @@ package org.bakery.orders.dao.impl;
 
 import org.bakery.orders.dao.DeliveryOrderDao;
 import org.bakery.orders.entity.DeliveryOrder;
-import org.bakery.orders.entity.User;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -25,8 +25,17 @@ public class DeliveryOrderDaoImpl extends GenericDaoImpl<DeliveryOrder, Long> im
 
     @Override
     public List<DeliveryOrder> searchByUser(@NotNull Long id) {
-        TypedQuery<DeliveryOrder> q = em.createQuery("SELECT o FROM DeliveryOrder o WHERE o.user = :userId", DeliveryOrder.class)
+
+        TypedQuery<DeliveryOrder> q = em.createQuery("SELECT o FROM DeliveryOrder o WHERE o.user.id = :userId", DeliveryOrder.class)
                 .setParameter("userId", id);
         return q.getResultList();
+    }
+
+    @Override
+    public DeliveryOrder create(DeliveryOrder deliveryOrder) {
+        deliveryOrder.setCreatedAt(LocalDateTime.now());
+        deliveryOrder.setUpdatedAt();
+        em.persist(deliveryOrder);
+        return deliveryOrder;
     }
 }

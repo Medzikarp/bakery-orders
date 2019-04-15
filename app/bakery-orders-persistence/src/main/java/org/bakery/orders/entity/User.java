@@ -66,4 +66,6 @@ public class User extends PersistentObject {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
 }

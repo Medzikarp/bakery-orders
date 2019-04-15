@@ -2,6 +2,9 @@ package org.bakery.orders.entity;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Created by Lukas Kotol on 30.03.2019.
@@ -15,6 +18,12 @@ public class DeliveryOrder extends PersistentObject {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
+
+    @Column
+    private LocalDateTime createdAt;
+
+    @Column
+    private LocalDateTime updatedAt;
 
     public String getName() {
         return name;
@@ -30,6 +39,23 @@ public class DeliveryOrder extends PersistentObject {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @PreUpdate
+    public void setUpdatedAt() {
+        this.updatedAt = LocalDateTime.now();
     }
 
     @Override

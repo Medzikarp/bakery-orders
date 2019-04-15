@@ -51,11 +51,11 @@ public class DeliveryOrderServiceTest {
 
     @Test
     public void addUserToDeliveryOrderTest() {
-        DeliveryOrder deliveryOrder = getSampleOrder();
-        deliveryOrderService.create(deliveryOrder);
         User user = getSampleUser();
         userService.create(user);
-        deliveryOrderService.addUserToDeliveryOrder(deliveryOrder.getId(), user.getId());
+        DeliveryOrder deliveryOrder = getSampleOrder();
+        deliveryOrder.setUser(user);
+        deliveryOrderService.create(deliveryOrder);
         DeliveryOrder expected = deliveryOrderService.findById(deliveryOrder.getId());
         Assert.assertEquals(user.getName(), expected.getUser().getName());
     }

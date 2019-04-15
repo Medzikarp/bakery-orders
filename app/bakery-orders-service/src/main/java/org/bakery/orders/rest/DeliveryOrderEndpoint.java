@@ -50,12 +50,13 @@ public class DeliveryOrderEndpoint {
         return builder.build();
     }
 
-    @POST
+    @PUT
     @Path("/{id}")
     public Response updateOrder(@PathParam("id") Long id, DeliveryOrder deliveryOrder) {
         Response.ResponseBuilder builder;
         DeliveryOrder oldDeliveryOrder = deliveryOrderService.findById(id);
         deliveryOrder.setId(oldDeliveryOrder.getId());
+        deliveryOrder.setCreatedAt(oldDeliveryOrder.getCreatedAt());
         try {
             DeliveryOrder updated = deliveryOrderService.update(deliveryOrder);
             builder = Response.ok(updated);
@@ -64,4 +65,19 @@ public class DeliveryOrderEndpoint {
         }
         return builder.build();
     }
+
+    @DELETE
+    @Path("{id}")
+    public Response removeOrder(@PathParam("id") Long id) {
+        Response.ResponseBuilder builder;
+        DeliveryOrder deliveryOrder = deliveryOrderService.findById(id);
+        try {
+            deliveryOrderService.remove(deliveryOrder);
+            builder = Response.ok();
+        } catch (Exception e) {
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());
+        }
+        return builder.build();
+    }
+
 }

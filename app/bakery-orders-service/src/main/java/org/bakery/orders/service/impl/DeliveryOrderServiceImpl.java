@@ -25,9 +25,6 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
     @Inject
     private DeliveryOrderDao deliveryOrderDao;
 
-    @Inject
-    private UserDao userDao;
-
     @Override
     public DeliveryOrder create(DeliveryOrder deliveryOrder) {
         deliveryOrder.setCreatedAt(LocalDateTime.now());

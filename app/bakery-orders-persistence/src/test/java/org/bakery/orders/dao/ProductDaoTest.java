@@ -39,7 +39,7 @@ public class ProductDaoTest {
 
     @Test
     public void createProductTest() {
-        Product product = createProduct();
+        Product product = getSampleProduct();
         productDao.create(product);
         Assert.assertEquals(1, productDao.findAll().size());
         Assert.assertEquals(product.getName(), productDao.findAll().get(0).getName());
@@ -47,14 +47,14 @@ public class ProductDaoTest {
 
     @Test
     public void deleteAllProductsTest() {
-        productDao.create(createProduct());
+        productDao.create(getSampleProduct());
         productDao.removeAll();
         Assert.assertEquals(0, productDao.findAll().size());
     }
 
     @Test
     public void updateProductTest() {
-        Product product = createProduct();
+        Product product = getSampleProduct();
         productDao.create(product);
         product.setName("Product 2");
         productDao.update(product);
@@ -64,13 +64,13 @@ public class ProductDaoTest {
 
     @Test
     public void deleteProductTest() {
-        Product product = createProduct();
+        Product product = getSampleProduct();
         productDao.create(product);
         productDao.remove(product.getId());
         Assert.assertEquals(0, productDao.findAll().size());
     }
 
-    private Product createProduct() {
+    private Product getSampleProduct() {
         return ProductBuilder.aProduct()
                 .withCost(10L)
                 .withDescription("Good product")

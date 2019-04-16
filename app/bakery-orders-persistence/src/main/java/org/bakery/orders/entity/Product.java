@@ -2,9 +2,6 @@ package org.bakery.orders.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Lukas Kotol on 15.04.2019.
@@ -27,9 +24,6 @@ public class Product extends PersistentObject {
 
     @Column
     private String description;
-
-    @OneToMany(mappedBy = "product")
-    private Set<DeliveryOrderProduct> deliveryOrderProducts = new HashSet<>();
 
     public String getName() {
         return name;
@@ -71,15 +65,4 @@ public class Product extends PersistentObject {
         this.description = description;
     }
 
-    public Set<DeliveryOrderProduct> getDeliveryOrderProducts() {
-        return deliveryOrderProducts;
-    }
-
-    public void setDeliveryOrderProducts(Set<DeliveryOrderProduct> deliveryOrderProducts) {
-        this.deliveryOrderProducts = deliveryOrderProducts;
-    }
-
-    public void addDeliveryOrderProduct(DeliveryOrderProduct deliveryOrderProduct) {
-        this.deliveryOrderProducts.add(deliveryOrderProduct);
-    }
 }

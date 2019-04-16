@@ -1,10 +1,6 @@
 package org.bakery.orders.builder;
 
-import org.bakery.orders.entity.DeliveryOrderProduct;
 import org.bakery.orders.entity.Product;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Lukas Kotol on 15.04.2019.
@@ -15,7 +11,6 @@ public final class ProductBuilder {
     private Long tax;
     private String image;
     private String description;
-    private Set<DeliveryOrderProduct> deliveryOrderProducts = new HashSet<>();
 
     private ProductBuilder() {
     }
@@ -49,10 +44,6 @@ public final class ProductBuilder {
         return this;
     }
 
-    public ProductBuilder withDeliveryOrderProducts(Set<DeliveryOrderProduct> deliveryOrderProducts) {
-        this.deliveryOrderProducts = deliveryOrderProducts;
-        return this;
-    }
 
     public Product build() {
         Product product = new Product();
@@ -61,7 +52,6 @@ public final class ProductBuilder {
         product.setTax(tax);
         product.setImage(image);
         product.setDescription(description);
-        product.setDeliveryOrderProducts(deliveryOrderProducts);
         return product;
     }
 }

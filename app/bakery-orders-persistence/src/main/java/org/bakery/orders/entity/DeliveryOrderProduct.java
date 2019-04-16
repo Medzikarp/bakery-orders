@@ -9,12 +9,10 @@ import javax.persistence.*;
 @Entity
 public class DeliveryOrderProduct extends PersistentObject {
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "DELIVERY_ORDER_ID")
+    @ManyToOne
     private DeliveryOrder deliveryOrder;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PRODUCT_ID")
+    @ManyToOne
     private Product product;
 
     @Column

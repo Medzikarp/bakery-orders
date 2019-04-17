@@ -38,8 +38,8 @@ public class DeliveryOrderServiceTest {
 
     @Before
     public void beforeEach() {
-        deliveryOrderService.removeAll();
         userService.removeAll();
+        deliveryOrderService.removeAll();
     }
 
     @Test

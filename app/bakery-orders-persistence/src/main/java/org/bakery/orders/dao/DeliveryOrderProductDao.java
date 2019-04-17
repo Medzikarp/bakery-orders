@@ -9,6 +9,6 @@ import java.util.List;
  * Created by Lukas Kotol on 16.04.2019.
  */
 public interface DeliveryOrderProductDao extends GenericDao<DeliveryOrderProduct, Long> {
-    public List<DeliveryOrderProduct> searchByDeliveryOrder(@NotNull Long id);
-    public List<DeliveryOrderProduct> searchByProduct(@NotNull Long id);
+    List<DeliveryOrderProduct> searchByDeliveryOrder(@NotNull Long id);
+    List<DeliveryOrderProduct> searchByProduct(@NotNull Long id);
 }

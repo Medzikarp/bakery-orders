@@ -25,6 +25,10 @@ public class DeliveryOrder extends PersistentObject {
     @Column
     private LocalDateTime updatedAt;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 8)
+    private State state;
+
     public String getName() {
         return name;
     }
@@ -70,4 +74,11 @@ public class DeliveryOrder extends PersistentObject {
                 ", user=" + user +
                 '}';
     }
+}
+
+enum State {
+    CONFIRMED,
+    UNCONFIRMED,
+    REFUSED,
+    PAID
 }

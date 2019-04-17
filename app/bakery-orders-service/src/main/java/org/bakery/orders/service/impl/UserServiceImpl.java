@@ -2,6 +2,7 @@ package org.bakery.orders.service.impl;
 
 import org.bakery.orders.dao.DeliveryOrderDao;
 import org.bakery.orders.dao.UserDao;
+import org.bakery.orders.entity.DeliveryOrder;
 import org.bakery.orders.entity.User;
 import org.bakery.orders.service.UserService;
 import org.jboss.logging.Logger;
@@ -42,7 +43,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void remove(User user) {
         LOGGER.info("Removing User with id " + user.getId());
-        deliveryOrderDao.searchByUser(user.getId()).forEach(deliveryOrder -> deliveryOrder.setUser(null));
+        deliveryOrderDao.searchByUser(user.getId()).forEach(deliveryOrder -> {
+            deliveryOrder.setUser(null);
+            deliveryOrderDao.update(deliveryOrder);
+        });
         userDao.remove(user.getId());
     }
 
@@ -61,6 +65,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void removeAll() {
         LOGGER.info("Removing all Users");
-        userDao.removeAll();
+        userDao.findAll().forEach(user -> deliveryOrderDao.searchByUser(user.getId()).forEach(deliveryOrder -> {
+            deliveryOrder.setUser(null);
+            deliveryOrderDao.update(deliveryOrder);
+        }));
+        userDao.findAll().forEach(this::remove);
     }
 }

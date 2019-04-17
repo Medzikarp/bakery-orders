@@ -1,5 +1,6 @@
 package org.bakery.orders.service.impl;
 
+import org.bakery.orders.dao.DeliveryOrderProductDao;
 import org.bakery.orders.dao.ProductDao;
 import org.bakery.orders.entity.Product;
 import org.bakery.orders.service.ProductService;
@@ -20,6 +21,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Inject
     private ProductDao productDao;
+
+    @Inject
+    private DeliveryOrderProductDao deliveryOrderProductDao;
 
     @Override
     public Product create(Product product) {
@@ -56,6 +60,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void removeAll() {
         LOGGER.info("Removing all Products");
+        findAll().forEach(product -> deliveryOrderProductDao.searchByProduct(product.getId()).forEach(deliveryOrderProduct -> {
+            deliveryOrderProductDao.remove(deliveryOrderProduct.getId());
+        }));
         productDao.removeAll();
     }
 }

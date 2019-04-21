@@ -8,6 +8,7 @@ import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -64,5 +65,11 @@ public class ProductServiceImpl implements ProductService {
             deliveryOrderProductDao.remove(deliveryOrderProduct.getId());
         }));
         productDao.removeAll();
+    }
+
+    @Override
+    public List<Product> searchByCategory(@NotNull Long id) {
+        LOGGER.info("Searching for all Products with categoryId " + id);
+        return productDao.searchByCategory(id);
     }
 }

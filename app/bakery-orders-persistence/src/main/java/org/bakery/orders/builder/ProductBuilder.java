@@ -1,9 +1,14 @@
 package org.bakery.orders.builder;
 
+import org.bakery.orders.entity.Category;
 import org.bakery.orders.entity.Product;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
- * Created by Lukas Kotol on 15.04.2019.
+ * Created by Lukas Kotol on 20.04.2019.
  */
 public final class ProductBuilder {
     private String name;
@@ -11,6 +16,7 @@ public final class ProductBuilder {
     private Long tax;
     private String image;
     private String description;
+    private List<Category> categories;
 
     private ProductBuilder() {
     }
@@ -44,6 +50,10 @@ public final class ProductBuilder {
         return this;
     }
 
+    public ProductBuilder withCategories(List<Category> categories) {
+        this.categories = categories;
+        return this;
+    }
 
     public Product build() {
         Product product = new Product();
@@ -52,6 +62,7 @@ public final class ProductBuilder {
         product.setTax(tax);
         product.setImage(image);
         product.setDescription(description);
+        product.setCategories(categories);
         return product;
     }
 }

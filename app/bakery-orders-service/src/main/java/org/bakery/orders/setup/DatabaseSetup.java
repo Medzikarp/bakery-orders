@@ -61,13 +61,10 @@ public class DatabaseSetup {
         Product product2 = productService.create(ProductBuilder.aProduct().withCost(10L).withTax(5L).withDescription("Description 2").withName("Product 2").withCategories(Arrays.asList(category1, category2)).build());
         Product product3 = productService.create(ProductBuilder.aProduct().withCost(10L).withTax(5L).withDescription("Description 3").withName("Product 3").withCategories(Arrays.asList(category1, category2, category3)).build());
 
-//        deliveryOrderProductService.associate(order1.getId(), product1.getId(), 2L);
-//        deliveryOrderProductService.associate(order1.getId(), product2.getId(), 2L);
-//        deliveryOrderProductService.associate(order2.getId(), product2.getId(), 2L);
-//        deliveryOrderProductService.associate(order3.getId(), product3.getId(), 2L);
-
-        //        product1.setCategories(Stream.of(category1, category2, category3).collect(Collectors.toSet()));
-//        productService.update(product1);
+        deliveryOrderProductService.associate(order1.getId(), product1.getId(), 2L);
+        deliveryOrderProductService.associate(order1.getId(), product2.getId(), 2L);
+        deliveryOrderProductService.associate(order2.getId(), product2.getId(), 2L);
+        deliveryOrderProductService.associate(order3.getId(), product3.getId(), 2L);
     }
 
 }

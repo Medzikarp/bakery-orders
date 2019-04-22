@@ -8,17 +8,20 @@ import {RouterModule, Routes} from '@angular/router';
 import {ProductComponent} from './product/product.component';
 import {HomeComponent} from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
+import {CreateProductComponent} from './product/create-product/create-product.component';
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent, data: {title: 'heroes'}},
-  {path: 'product', component: ProductComponent, data: {title: 'Products'}}
+  {path: '', component: HomeComponent},
+  {path: 'product', component: ProductComponent},
+  {path: 'product/create', component: CreateProductComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductComponent,
-    HomeComponent
+    HomeComponent,
+    CreateProductComponent
   ],
   imports: [
     BrowserModule,

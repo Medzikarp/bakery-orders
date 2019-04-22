@@ -8,9 +8,9 @@ import {ProductService} from "../services/product.service";
   styleUrls: ['./product.component.css']
 })
 
-export class ProductComponent implements OnInit {
+export class ProductComponent {
   title = 'Products';
-  displayedColumns: string[] = ['name', 'cost', 'tax'];
+  displayedColumns: string[] = ['name', 'cost', 'tax', 'actions'];
   dataSource;
 
   constructor(private productService: ProductService) {
@@ -19,15 +19,16 @@ export class ProductComponent implements OnInit {
         this.dataSource = data
       },
       err => console.error(err),
-      () => console.log(this.dataSource)
     );
   }
 
-  getRecord(row) {
-    console.log(row);
-  }
+  onClickDelete(id: number) {
+    this.productService.deleteProduct(id).subscribe(
+      data => {
 
-  ngOnInit() {
+      },
+      err => console.error(err),
+      () => this.dataSource = this.dataSource.filter(item => item.id != id)
+    );
   }
-
 }

@@ -4,6 +4,12 @@
   flex: 1 1 auto;
 }
 
-.navbar {
-  margin-bottom: 15px;
+.mat-toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.container {
+  margin-top: 80px;
 }

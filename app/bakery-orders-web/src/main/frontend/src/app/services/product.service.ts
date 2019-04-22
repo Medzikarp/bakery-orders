@@ -13,4 +13,8 @@ export class ProductService {
   getProducts() {
     return this.httpClient.get(this.baseUrl + '/product');
   }
+
+  deleteProduct(id: number) {
+    return this.httpClient.delete(this.baseUrl + '/product/' + id);
+  }
 }

@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\node.exe C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\bin\yarn.js run build-prod
+  C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\node.exe C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\bin\yarn.js install
 
 PATH: 
-  C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node;C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\bin;C:\Users\lkotol\Documents\cmder\bin;C:\Users\lkotol\Documents\cmder\vendor\conemu-maximus5\ConEmu\Scripts;C:\Users\lkotol\Documents\cmder\vendor\conemu-maximus5;C:\Users\lkotol\Documents\cmder\vendor\conemu-maximus5\ConEmu;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\apache-maven-3.5.3\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\PuTTY\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\VideoLAN\VLC;C:\cygwin64\bin;C:\Users\lkotol\AppData\Local\Microsoft\WindowsApps;C:\Users\lkotol\AppData\Roaming\npm;C:\Users\lkotol\AppData\Local\hyper\app-2.0.0\resources\bin;C:\Users\lkotol\AppData\Local\atom\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\share\vim\vim74;C:\Users\lkotol\Documents\cmder\;
+  C:\Users\lkotol\AppData\Local\Temp\yarn--1555854760298-0.24359645551529518;C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\src\main\frontend\node_modules\.bin;C:\Users\lkotol\AppData\Local\Yarn\Data\link\node_modules\.bin;C:\Users\lkotol\AppData\Local\Yarn\bin;C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\libexec\lib\node_modules\npm\bin\node-gyp-bin;C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\lib\node_modules\npm\bin\node-gyp-bin;C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\node_modules\npm\bin\node-gyp-bin;C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node;C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\bin;C:\Users\lkotol\Documents\cmder\bin;C:\Users\lkotol\Documents\cmder\vendor\conemu-maximus5\ConEmu\Scripts;C:\Users\lkotol\Documents\cmder\vendor\conemu-maximus5;C:\Users\lkotol\Documents\cmder\vendor\conemu-maximus5\ConEmu;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\apache-maven-3.5.3\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\PuTTY\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\VideoLAN\VLC;C:\cygwin64\bin;C:\Users\lkotol\AppData\Local\Microsoft\WindowsApps;C:\Users\lkotol\AppData\Roaming\npm;C:\Users\lkotol\AppData\Local\hyper\app-2.0.0\resources\bin;C:\Users\lkotol\AppData\Local\atom\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\share\vim\vim74;C:\Users\lkotol\Documents\cmder\;
 
 Yarn version: 
   1.15.2
@@ -20,10 +20,11 @@ Trace:
       at writeOrBuffer (_stream_writable.js:394:5)
       at Socket.Writable.write (_stream_writable.js:294:11)
       at ConsoleReporter._log (C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\lib\cli.js:95954:17)
-      at ConsoleReporter.log (C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\lib\cli.js:95942:10)
-      at ConsoleReporter.footer (C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\lib\cli.js:95933:10)
-      at C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\lib\cli.js:91565:20
-      at process._tickCallback (internal/process/next_tick.js:68:7)
+      at ConsoleReporter._logCategory (C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\lib\cli.js:95782:10)
+      at ConsoleReporter.info (C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\lib\cli.js:95967:10)
+      at pushError (C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\lib\cli.js:63593:16)
+      at checkOne (C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\lib\cli.js:63610:5)
+      at Object.check (C:\Users\lkotol\Documents\fi\bakery-orders\app\bakery-orders-web\target\node\yarn\dist\lib\cli.js:63669:5)
 
 npm manifest: 
   {
@@ -43,11 +44,13 @@ npm manifest:
     "private": true,
     "dependencies": {
       "@angular/animations": "^7.0.0",
+      "@angular/cdk": "^7.0.0",
       "@angular/common": "^7.0.0",
       "@angular/compiler": "^7.0.0",
       "@angular/core": "^7.0.0",
       "@angular/forms": "^7.0.0",
       "@angular/http": "^7.0.0",
+      "@angular/material": "^7.0.0",
       "@angular/platform-browser": "^7.0.0",
       "@angular/platform-browser-dynamic": "^7.0.0",
       "@angular/router": "^7.0.0",

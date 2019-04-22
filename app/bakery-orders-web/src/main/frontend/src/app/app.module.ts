@@ -6,12 +6,12 @@ import {MaterialModule} from './material-module';
 import {AppComponent} from './app.component';
 import {RouterModule, Routes} from '@angular/router';
 import {ProductComponent} from './product/product.component';
-import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HomeComponent} from './home/home.component';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'product', component: ProductComponent}
+  {path: '', component: HomeComponent, data: {title: 'heroes'}},
+  {path: 'product', component: ProductComponent, data: {title: 'Products'}}
 ];
 
 @NgModule({

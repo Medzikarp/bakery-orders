@@ -7,4 +7,5 @@ export class Product {
   tax: Number;
   description: String;
   categories: Category[];
+  imageUrl: String;
 }

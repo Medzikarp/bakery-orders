@@ -11,6 +11,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ProductCreateComponent} from './product/product-create/product-create.component';
 import { CategoryComponent } from './category/category.component';
 import { CategoryCreateComponent } from './category/category-create/category-create.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -27,7 +28,7 @@ const appRoutes: Routes = [
     ProductComponent,
     ProductCreateComponent,
     CategoryComponent,
-    CategoryCreateComponent,
+    CategoryCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes
     ),
-    HttpClientModule
+    HttpClientModule,
+    MaterialFileInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

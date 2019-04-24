@@ -1,6 +1,5 @@
 <h1 class="mat-h1">
   {{title}}
-  <a mat-raised-button routerLink="/product/create" color="primary">Add</a>
 </h1>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -44,3 +43,6 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
+<div fxLayout="column" fxLayoutAlign="space-between end" >
+  <a mat-raised-button routerLink="/product/create" color="primary">Add</a>
+</div>

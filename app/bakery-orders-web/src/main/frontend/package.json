@@ -27,6 +27,7 @@
     "@angular/platform-browser-dynamic": "^7.0.0",
     "@angular/router": "^7.0.0",
     "core-js": "^3.0.0",
+    "ngx-material-file-input": "^1.1.1",
     "rxjs": "^6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "^0.8.0"

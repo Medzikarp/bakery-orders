@@ -1,6 +1,5 @@
 <h1 class="mat-h1">
   {{title}}
-  <a mat-raised-button routerLink="/category/create" color="primary">Add</a>
 </h1>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -27,8 +26,11 @@
     </td>
   </ng-container>
 
-
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
+
+<div fxLayout="column" fxLayoutAlign="space-between end" >
+  <a mat-raised-button routerLink="/category/create" color="primary">Add</a>
+</div>

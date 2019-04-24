@@ -6,6 +6,7 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -88,9 +89,12 @@ import {
     MatTreeModule,
     PortalModule,
     ScrollingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
-export class MaterialModule {}
+export class MaterialModule {
+}
 
 
 /**  Copyright 2019 Google Inc. All Rights Reserved.

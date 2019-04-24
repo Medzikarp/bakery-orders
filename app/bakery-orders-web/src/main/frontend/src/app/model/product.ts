@@ -5,5 +5,6 @@ export class Product {
   name: String;
   cost: Number;
   tax: Number;
+  description: String;
   categories: Category[];
 }

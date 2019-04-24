@@ -1,0 +1,20 @@
+<div class="category-create-container">
+  <h1 class="mat-h1">
+    Add category
+  </h1>
+  <form [formGroup]="createCategory" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
+
+    <!-- Name -->
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Name" formControlName="name" required>
+      <mat-error *ngIf="createCategory.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <!-- Description -->
+    <mat-form-field class="example-full-width">
+      <textarea matInput formControlName="description" placeholder="Description"></textarea>
+    </mat-form-field>
+
+    <button class="example-full-width" mat-raised-button color="primary" [disabled]="!createCategory.valid">Add</button>
+  </form>
+</div>

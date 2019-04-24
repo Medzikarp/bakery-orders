@@ -10,7 +10,7 @@ import {ProductService} from "../services/product.service";
 
 export class ProductComponent {
   title = 'Products';
-  displayedColumns: string[] = ['name', 'cost', 'tax', 'actions'];
+  displayedColumns: string[] = ['name', 'cost', 'tax', 'description', 'actions'];
   dataSource;
 
   constructor(private productService: ProductService) {

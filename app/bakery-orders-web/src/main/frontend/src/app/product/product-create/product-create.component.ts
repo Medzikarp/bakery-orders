@@ -8,10 +8,10 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-product',
-  templateUrl: './create-product.component.html',
-  styleUrls: ['./create-product.component.css']
+  templateUrl: './product-create.component.html',
+  styleUrls: ['./product-create.component.css']
 })
-export class CreateProductComponent {
+export class ProductCreateComponent {
   createProduct: FormGroup;
   categoriesList;
 
@@ -42,6 +42,7 @@ export class CreateProductComponent {
     product.name = this.createProduct.get('name').value;
     product.cost = this.createProduct.get('cost').value;
     product.tax = this.createProduct.get('tax').value;
+    product.description = this.createProduct.get('description').value;
     product.categories = [];
 
     for (let valueKey in this.createProduct.get('categories').value) {

@@ -29,6 +29,15 @@ public class DeliveryOrder extends PersistentObject {
     @Column(length = 8)
     private State state;
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+
     public String getName() {
         return name;
     }

@@ -186,6 +186,20 @@
             <artifactId>commons-io</artifactId>
             <version>${version.common-io}</version>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>2.2.1.GA</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-multipart-provider</artifactId>
+            <version>2.2.0.GA</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
     <repositories>
         <!-- The JBoss Community public repository is a composite repository of several major repositories -->

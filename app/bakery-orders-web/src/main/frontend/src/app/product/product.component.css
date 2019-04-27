@@ -1,5 +1,11 @@
 table {
-  min-width: 500px;
+    min-width: 500px;
 }
 
+.link-container {
+    margin-top: 10px;
+}
 
+a {
+    width: 100%;
+}

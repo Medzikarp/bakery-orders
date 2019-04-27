@@ -1,39 +1,44 @@
 <div class="product-create-container">
-  <h1 class="mat-h1">
-    Add product
-  </h1>
-  <form [formGroup]="createProduct" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Name" formControlName="name" required>
-      <mat-error *ngIf="createProduct.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
-    </mat-form-field>
+    <h1 class="mat-h1">
+        Add product
+    </h1>
+    <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Name" formControlName="name" required>
+            <mat-error *ngIf="form.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <input matInput type="number" placeholder="Cost" formControlName="cost" required min="0">
-      <mat-error *ngIf="createProduct.get('cost').invalid">{{getCostErrorMessage()}}</mat-error>
-    </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input matInput type="number" placeholder="Cost" formControlName="cost" required min="0">
+            <mat-error *ngIf="form.get('cost').invalid">{{getCostErrorMessage()}}</mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <input matInput type="number" placeholder="Tax" formControlName="tax" required min="0">
-      <mat-error *ngIf="createProduct.get('cost').invalid">{{getTaxErrorMessage()}}</mat-error>
-    </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input matInput type="number" placeholder="Tax" formControlName="tax" required min="0">
+            <mat-error *ngIf="form.get('cost').invalid">{{getTaxErrorMessage()}}</mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <textarea matInput required formControlName="description" placeholder="Description"></textarea>
-      <mat-error *ngIf="createProduct.get('description').invalid">{{getDescriptionErrorMessage()}}</mat-error>
-    </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <textarea matInput required formControlName="description" placeholder="Description"></textarea>
+            <mat-error *ngIf="form.get('description').invalid">{{getDescriptionErrorMessage()}}</mat-error>
+        </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <mat-select placeholder="Categories" formControlName="categories" multiple>
-        <mat-option *ngFor="let category of categoriesList" [value]="category.id">{{category.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-select placeholder="Categories" formControlName="categories" multiple>
+                <mat-option *ngFor="let category of categoriesList" [value]="category.name">{{category.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-    <mat-form-field>
-      <ngx-mat-file-input formControlName="multiplefile" placeholder="Multiple inputs" multiple></ngx-mat-file-input>
-      <mat-icon matSuffix>folder</mat-icon>
-    </mat-form-field>
+        <div *ngIf="url != null">
+            <img [src]="url" width="100%">
+        </div>
 
-    <button class="example-full-width" mat-raised-button color="primary" [disabled]="!createProduct.valid">Add</button>
-  </form>
+        <mat-form-field class="example-full-width">
+            <ngx-mat-file-input formControlName="file" placeholder="Basic Input" (change)="onFileSelected($event)"></ngx-mat-file-input>
+            <mat-icon matSuffix>folder</mat-icon>
+            <mat-error *ngIf="form.get('file').invalid">{{getFileErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+        <button id="submit-button" class="example-full-width" mat-raised-button color="primary" [disabled]="!form.valid">Add</button>
+    </form>
 </div>

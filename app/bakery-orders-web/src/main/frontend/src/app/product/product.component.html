@@ -35,6 +35,7 @@
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions</th>
         <td mat-cell *matCellDef="let element">
+            <a mat-button color="primary" [routerLink]="['/product/', element.id]">Update</a>
             <button mat-button color="warn" (click)="onClickDelete(element.id)">Delete</button>
         </td>
     </ng-container>
@@ -45,5 +46,5 @@
 </table>
 
 <div class="link-container">
-    <a style="width: 100%" mat-raised-button routerLink="/product/create" color="primary">Add</a>
+    <a class="full-width" mat-raised-button routerLink="/product/create" color="primary">Add</a>
 </div>

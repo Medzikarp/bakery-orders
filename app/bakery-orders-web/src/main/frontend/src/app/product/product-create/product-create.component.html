@@ -1,6 +1,7 @@
 <div class="product-create-container">
     <h1 class="mat-h1">
-        Add product
+        <div *ngIf="product.id == null; else updateHeader">Add product</div>
+        <ng-template #updateHeader>Update product</ng-template>
     </h1>
     <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
         <mat-form-field class="example-full-width">
@@ -24,21 +25,24 @@
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-            <mat-select placeholder="Categories" formControlName="categories" multiple>
-                <mat-option *ngFor="let category of categoriesList" [value]="category.name">{{category.name}}</mat-option>
+            <mat-select placeholder="Categories" formControlName="categories" multiple [compareWith]="compareCategories">
+                <mat-option *ngFor="let category of categoriesList" [value]="category">{{category.name}}</mat-option>
             </mat-select>
         </mat-form-field>
 
-        <div *ngIf="url != null">
-            <img [src]="url" width="100%">
+        <div *ngIf="tmpImg != null">
+            <img [src]="tmpImg" width="100%">
         </div>
 
         <mat-form-field class="example-full-width">
-            <ngx-mat-file-input formControlName="file" placeholder="Basic Input" (change)="onFileSelected($event)"></ngx-mat-file-input>
+            <ngx-mat-file-input formControlName="file" placeholder="Product image" (change)="onFileSelected($event)"></ngx-mat-file-input>
             <mat-icon matSuffix>folder</mat-icon>
             <mat-error *ngIf="form.get('file').invalid">{{getFileErrorMessage()}}</mat-error>
         </mat-form-field>
 
-        <button id="submit-button" class="example-full-width" mat-raised-button color="primary" [disabled]="!form.valid">Add</button>
+        <button id="submit-button" class="example-full-width" mat-raised-button color="primary" [disabled]="!form.valid">
+            <div *ngIf="product.id == null; else updateButton">Add</div>
+            <ng-template #updateButton>Update</ng-template>
+        </button>
     </form>
 </div>

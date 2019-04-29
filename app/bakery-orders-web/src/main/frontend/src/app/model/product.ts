@@ -1,11 +1,11 @@
 import {Category} from './category';
 
 export class Product {
-  id: Number;
-  name: String;
-  cost: Number;
-  tax: Number;
-  description: String;
-  categories: Category[];
-  imageUrl: String;
+    id: number = null;
+    name: String = null;
+    cost: Number = null;
+    tax: Number = null;
+    description: String = null;
+    categories: Category[] = [];
+    image: String = null;
 }

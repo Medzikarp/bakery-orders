@@ -2,6 +2,7 @@ package org.bakery.orders.entity;
 
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -16,6 +17,8 @@ public class DeliveryOrder extends PersistentObject {
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @NotNull
+    @Valid
     private User user;
 
     @Column

@@ -73,9 +73,9 @@ public class ProductDaoTest {
     private Product getSampleProduct() {
         return ProductBuilder.aProduct()
                 .withCost(10L)
+                .withTax(10L)
                 .withDescription("Good product")
                 .withName("Product 1")
-                .withTax(10L)
                 .withImage("Simple Imange")
                 .build();
     }

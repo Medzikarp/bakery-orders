@@ -22,6 +22,7 @@ public class DeliveryOrderProductEndpoint {
     private DeliveryOrderProductService deliveryOrderProductService;
 
 
+
     @GET
     @Path("/order/{id}")
     public Response getOrderProductsByOrder(@PathParam("id") Long id) {
@@ -56,8 +57,12 @@ public class DeliveryOrderProductEndpoint {
     @POST
     @Path("/add")
     public Response add(DeliveryOrderProduct deliveryOrderProduct) {
-        DeliveryOrderProduct added = deliveryOrderProductService.associate(deliveryOrderProduct.getDeliveryOrder().getId(), deliveryOrderProduct.getProduct().getId(), deliveryOrderProduct.getQuantity());
-        return Response.ok(added).build();
+        try {
+            DeliveryOrderProduct added = deliveryOrderProductService.associate(deliveryOrderProduct.getDeliveryOrder().getId(), deliveryOrderProduct.getProduct().getId(), deliveryOrderProduct.getQuantity());
+            return Response.ok(added).build();
+        } catch (IllegalArgumentException ex) {
+            return Response.status(404).entity(ex.getMessage()).build();
+        }
     }
 
     @DELETE

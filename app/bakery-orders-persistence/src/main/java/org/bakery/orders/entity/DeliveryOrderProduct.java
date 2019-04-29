@@ -1,6 +1,10 @@
 package org.bakery.orders.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Lukas Kotol on 15.04.2019.
@@ -10,9 +14,13 @@ import javax.persistence.*;
 public class DeliveryOrderProduct extends PersistentObject {
 
     @ManyToOne
+    @NotNull
+    @Valid
     private DeliveryOrder deliveryOrder;
 
     @ManyToOne
+    @NotNull
+    @Valid
     private Product product;
 
     @Column

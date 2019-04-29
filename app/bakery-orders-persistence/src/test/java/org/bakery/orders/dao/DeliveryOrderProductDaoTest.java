@@ -1,10 +1,13 @@
 package org.bakery.orders.dao;
 
+import org.bakery.orders.builder.DeliveryOrderBuilder;
 import org.bakery.orders.builder.DeliveryOrderProductBuilder;
 import org.bakery.orders.builder.ProductBuilder;
+import org.bakery.orders.builder.UserBuilder;
 import org.bakery.orders.entity.DeliveryOrder;
 import org.bakery.orders.entity.DeliveryOrderProduct;
 import org.bakery.orders.entity.Product;
+import org.bakery.orders.entity.User;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -42,16 +45,30 @@ public class DeliveryOrderProductDaoTest {
     @Inject
     private ProductDao productDao;
 
+    @Inject
+    private UserDao userDao;
+
     @Before
     public void beforeEach() {
         deliveryOrderProductDao.removeAll();
         deliveryOrderDao.removeAll();
         productDao.removeAll();
+        userDao.removeAll();
     }
 
     @Test
     public void createDeliveryOrderProductTest() {
-        DeliveryOrderProduct deliveryOrderProduct = DeliveryOrderProductBuilder.aDeliveryOrderProduct().withQuantity(2L).build();
+
+        User user = getSampleUser();
+        DeliveryOrder order = getSampleOrder(user);
+        Product product = getSampleProduct();
+
+
+        userDao.create(user);
+        deliveryOrderDao.create(order);
+        productDao.create(product);
+
+        DeliveryOrderProduct deliveryOrderProduct = DeliveryOrderProductBuilder.aDeliveryOrderProduct().withQuantity(2L).withProduct(product).withDeliveryOrder(order).build();
         deliveryOrderProductDao.create(deliveryOrderProduct);
         Assert.assertEquals(1, deliveryOrderProductDao.findAll().size());
         Assert.assertEquals(deliveryOrderProduct.getQuantity(), deliveryOrderProductDao.findAll().get(0).getQuantity());
@@ -59,11 +76,13 @@ public class DeliveryOrderProductDaoTest {
 
     @Test
     public void searchByDeliveryOrderTest() {
+        User user = getSampleUser();
         Product product = getSampleProduct();
         Product anotherProduct = getSampleProduct();
-        DeliveryOrder deliveryOrder = getSampleOrder();
-        DeliveryOrder anotherDeliveryOrder = getSampleOrder();
+        DeliveryOrder deliveryOrder = getSampleOrder(user);
+        DeliveryOrder anotherDeliveryOrder = getSampleOrder(user);
 
+        userDao.create(user);
         productDao.create(product);
         productDao.create(anotherProduct);
         deliveryOrderDao.create(deliveryOrder);
@@ -84,11 +103,13 @@ public class DeliveryOrderProductDaoTest {
 
     @Test
     public void searchByProductTest() {
+        User user = getSampleUser();
         Product product = getSampleProduct();
         Product anotherProduct = getSampleProduct();
-        DeliveryOrder deliveryOrder = getSampleOrder();
-        DeliveryOrder anotherDeliveryOrder = getSampleOrder();
+        DeliveryOrder deliveryOrder = getSampleOrder(user);
+        DeliveryOrder anotherDeliveryOrder = getSampleOrder(user);
 
+        userDao.create(user);
         productDao.create(product);
         productDao.create(anotherProduct);
         deliveryOrderDao.create(deliveryOrder);
@@ -112,14 +133,25 @@ public class DeliveryOrderProductDaoTest {
                 .withDescription("Good product")
                 .withName("Product 1")
                 .withTax(10L)
-                .withImage("Simple Imange")
+                .withImage("Simple Image")
                 .build();
     }
 
-    private DeliveryOrder getSampleOrder() {
-        DeliveryOrder deliveryOrder = new DeliveryOrder();
-        deliveryOrder.setName("Objednavka 1");
-        deliveryOrder.setCreatedAt(LocalDateTime.now());
-        return deliveryOrder;
+    private DeliveryOrder getSampleOrder(User user) {
+        return DeliveryOrderBuilder.aDeliveryOrder()
+                .withName("order1")
+                .withCreatedAt(LocalDateTime.now())
+                .withUser(user)
+                .build();
     }
+
+    private User getSampleUser() {
+        return  UserBuilder.anUser()
+                .withEmail("test@test.com")
+                .withName("Jan Novak")
+                .withPasswordHash("qiyh4XPJGsOZ2MEAyLkfWqeQ")
+                .withDeliveryAddress("Kanadska 3, Brno")
+                .build();
+    }
+
 }

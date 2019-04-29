@@ -1,16 +1,15 @@
 package org.bakery.orders.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.hibernate.annotations.Fetch;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Lukas Kotol on 20.04.2019.
@@ -20,9 +19,11 @@ import java.util.Set;
 public class Category extends PersistentObject {
 
     @Column
+    @NotNull
     private String name;
 
     @Column
+    @Size(min = 5, max = 200, message = "Description must be between 5 and 200 characters")
     private String description;
 
     @ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER)

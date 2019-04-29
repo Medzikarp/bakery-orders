@@ -14,11 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by Lukas Kotol on 14.04.2019.
@@ -45,7 +41,12 @@ public class DatabaseSetup {
 
     @PostConstruct
     public void init() {
-        User user1 = UserBuilder.anUser().withName("User 1").withEmail("user@seznam.cz").build();
+        User user1 = UserBuilder.anUser()
+                .withEmail("test@test.com")
+                .withName("User 1")
+                .withPasswordHash("qiyh4XPJGsOZ2MEAyLkfWqeQ")
+                .withDeliveryAddress("Kanadska 3, Brno")
+                .build();
         userService.create(user1);
 
         DeliveryOrder order1 = deliveryOrderService.create(DeliveryOrderBuilder.aDeliveryOrder().withUser(user1).withName("DeliveryOrder 1").build());

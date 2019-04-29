@@ -75,7 +75,12 @@ public class DeliveryOrderProductServiceImpl implements DeliveryOrderProductServ
         LOGGER.info("Associating DeliveryOrder " + deliveryOrderId + " with Product " + productId);
         DeliveryOrder deliveryOrder = deliveryOrderDao.find(deliveryOrderId);
         Product product = productDao.find(productId);
-
+        if (product == null) {
+            throw new IllegalArgumentException("Referenced product not found.");
+        }
+        if (deliveryOrder == null) {
+            throw new IllegalArgumentException("Referenced order not found.");
+        }
         DeliveryOrderProduct deliveryOrderProduct = new DeliveryOrderProduct();
         deliveryOrderProduct.setQuantity(quantity);
         deliveryOrderProduct.setDeliveryOrder(deliveryOrder);

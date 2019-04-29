@@ -9,7 +9,7 @@ import {CategoryService} from "../services/category.service";
 export class CategoryComponent {
 
   title = 'Categories';
-  displayedColumns: string[] = ['name', 'description'];
+  displayedColumns: string[] = ['name', 'description', 'actions'];
   dataSource;
 
   constructor(private categoryService: CategoryService) {

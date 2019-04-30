@@ -20,7 +20,7 @@
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-            <textarea matInput required formControlName="description" placeholder="Description"></textarea>
+            <textarea matInput required minlength="5" maxlength="200" formControlName="description" placeholder="Description"></textarea>
             <mat-error *ngIf="form.get('description').invalid">{{getDescriptionErrorMessage()}}</mat-error>
         </mat-form-field>
 

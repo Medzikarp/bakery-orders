@@ -90,7 +90,7 @@ export class ProductCreateComponent {
             'name': [null, Validators.required],
             'cost': [null, Validators.required],
             'tax': [null, Validators.required],
-            'description': [null, Validators.required],
+            'description': [null, Validators.required, Validators.maxLength(200), Validators.minLength(5)],
             'categories': [],
             'file': [null]
         });
@@ -181,7 +181,9 @@ export class ProductCreateComponent {
 
     getDescriptionErrorMessage() {
         return this.form.get('description').hasError('required') ? 'You must enter a value' :
-            '';
+            this.form.get('description').hasError('maxlength') ? 'Size of description must be between 5 and 200 characters' :
+                this.form.get('description').hasError('minlength') ? 'Size of description must be between 5 and 200 characters' :
+                    '';
     }
 
     getFileErrorMessage() {

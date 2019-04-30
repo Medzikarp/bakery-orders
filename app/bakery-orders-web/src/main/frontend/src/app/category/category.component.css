@@ -9,3 +9,11 @@ table {
 a {
     width: 100%;
 }
+
+td {
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+}

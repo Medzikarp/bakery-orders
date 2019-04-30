@@ -26,7 +26,8 @@ export class ProductCreateComponent {
                 private router: Router,
                 private fileService: FileService,
                 private snackBar: MatSnackBar,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute
+    ) {
 
         this.fetchCategories();
         this.createForm(fb);

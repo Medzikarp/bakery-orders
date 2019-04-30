@@ -19,7 +19,9 @@ const appRoutes: Routes = [
   {path: 'product/create', component: ProductCreateComponent},
   {path: 'product/:id', component: ProductCreateComponent},
   {path: 'category', component: CategoryComponent},
-  {path: 'category/create', component: CategoryCreateComponent}
+  {path: 'category/create', component: CategoryCreateComponent},
+  {path: 'category/:id', component: CategoryCreateComponent},
+
 ];
 
 @NgModule({

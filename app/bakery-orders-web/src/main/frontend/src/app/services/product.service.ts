@@ -8,7 +8,11 @@ import {Observable} from "rxjs";
 })
 export class ProductService {
     baseUrl: string = "http://localhost:8080/api";
-
+    options = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+        })
+    };
 
     constructor(private httpClient: HttpClient) {
     }
@@ -26,28 +30,11 @@ export class ProductService {
     }
 
     updateProduct(product: Product): Observable<Product> {
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json'
-        });
-
-        let options = {
-            headers: headers
-        };
-
-        return this.httpClient.put<Product>(this.baseUrl + '/product/' + product.id, product, options)
+        return this.httpClient.put<Product>(this.baseUrl + '/product/' + product.id, product, this.options);
     }
 
     createProduct(product: Product): Observable<Product> {
-
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json'
-        });
-
-        let options = {
-            headers: headers
-        };
-
-        return this.httpClient.post<Product>(this.baseUrl + '/product', product, options)
+        return this.httpClient.post<Product>(this.baseUrl + '/product', product, this.options)
     }
 
 }

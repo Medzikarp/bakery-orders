@@ -90,7 +90,7 @@ export class ProductCreateComponent {
             'name': [null, Validators.required],
             'cost': [null, Validators.required],
             'tax': [null, Validators.required],
-            'description': [null, Validators.required, Validators.maxLength(200), Validators.minLength(5)],
+            'description': [null, [Validators.required, Validators.maxLength(200), Validators.minLength(5)]],
             'categories': [],
             'file': [null]
         });
@@ -136,9 +136,10 @@ export class ProductCreateComponent {
     }
 
     private createProduct(product: Product) {
+
         this.productService.createProduct(product).subscribe(
-            () => {
-                this.fileService.uploadImage(this.selectedFile, 'products', product.id).subscribe(
+            (created) => {
+                this.fileService.uploadImage(this.selectedFile, 'products', created.id).subscribe(
                     () => this.navigateUrlAndOpenSnack('/product', 'Product created!'),
                     err => console.error(err),
                 );
@@ -149,11 +150,11 @@ export class ProductCreateComponent {
 
     private updateProduct(product: Product) {
         this.productService.updateProduct(product).subscribe(
-            () => {
+            (created) => {
                 if (this.selectedFile == null) {
                     this.navigateUrlAndOpenSnack('/product', 'Product updated!');
                 } else {
-                    this.fileService.uploadImage(this.selectedFile, 'products', product.id).subscribe(
+                    this.fileService.uploadImage(this.selectedFile, 'products', created.id).subscribe(
                         () => this.navigateUrlAndOpenSnack('/product', 'Product updated!'),
                         err => console.error(err)
                     );

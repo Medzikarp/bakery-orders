@@ -1,29 +1,34 @@
 <mat-toolbar color="primary" class="navbar">
 
-  <button mat-button routerLink="/">
-    <mat-icon>home</mat-icon>
-    Bakery Orders
-  </button>
+    <button mat-button routerLink="/">
+        <mat-icon>home</mat-icon>
+        Bakery Orders
+    </button>
 
-  <!-- This fills the remaining space of the current row -->
-  <span class="fill-remaining-space"></span>
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button routerLink="/product">Product</button>
-  </div>
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button routerLink="/category">Categories</button>
-  </div>
-  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
-    <mat-icon>menu</mat-icon>
-  </button>
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+        <button mat-button routerLink="/product">Products</button>
+    </div>
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+        <button mat-button routerLink="/category">Categories</button>
+    </div>
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+        <button mat-button routerLink="/order">Orders</button>
+    </div>
+    <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+        <mat-icon>menu</mat-icon>
+    </button>
 
 </mat-toolbar>
 <mat-menu x-position="before" #menu="matMenu">
-  <button mat-menu-item routerLink="/product">Products</button>
+    <button mat-menu-item routerLink="/product">Products</button>
+    <button mat-menu-item routerLink="/category">Categories</button>
+    <button mat-menu-item routerLink="/order">Orders</button>
 </mat-menu>
 <div style="width: 100%">
-  <div fxLayout="column" fxLayoutAlign="start center" class="container">
-    <router-outlet ></router-outlet>
-  </div>
+    <div fxLayout="column" fxLayoutAlign="start center" class="container">
+        <router-outlet></router-outlet>
+    </div>
 
 </div>

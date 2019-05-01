@@ -9,43 +9,46 @@ import {ProductComponent} from './product/product.component';
 import {HomeComponent} from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ProductCreateComponent} from './product/product-create/product-create.component';
-import { CategoryComponent } from './category/category.component';
-import { CategoryCreateComponent } from './category/category-create/category-create.component';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
+import {CategoryComponent} from './category/category.component';
+import {CategoryCreateComponent} from './category/category-create/category-create.component';
+import {MaterialFileInputModule} from 'ngx-material-file-input';
+import {OrderComponent} from './order/order.component';
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'product', component: ProductComponent},
-  {path: 'product/create', component: ProductCreateComponent},
-  {path: 'product/:id', component: ProductCreateComponent},
-  {path: 'category', component: CategoryComponent},
-  {path: 'category/create', component: CategoryCreateComponent},
-  {path: 'category/:id', component: CategoryCreateComponent},
+    {path: '', component: HomeComponent},
+    {path: 'product', component: ProductComponent},
+    {path: 'product/create', component: ProductCreateComponent},
+    {path: 'product/:id', component: ProductCreateComponent},
+    {path: 'category', component: CategoryComponent},
+    {path: 'category/create', component: CategoryCreateComponent},
+    {path: 'category/:id', component: CategoryCreateComponent},
+    {path: 'order', component: OrderComponent}
 
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    ProductComponent,
-    ProductCreateComponent,
-    CategoryComponent,
-    CategoryCreateComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    FlexLayoutModule,
-    RouterModule.forRoot(
-      appRoutes
-    ),
-    HttpClientModule,
-    MaterialFileInputModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        ProductComponent,
+        ProductCreateComponent,
+        CategoryComponent,
+        CategoryCreateComponent,
+        OrderComponent
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        FlexLayoutModule,
+        RouterModule.forRoot(
+            appRoutes
+        ),
+        HttpClientModule,
+        MaterialFileInputModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

@@ -47,10 +47,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void remove(Product product) {
         LOGGER.info("Removing Product with id " + product.getId());
-//        product.getCategories().forEach(category -> {
-//            category.getProducts().remove(product);
-//            categoryDao.update(category);
-//        });
         deliveryOrderProductDao.searchByProduct(product.getId()).forEach(deliveryOrderProduct -> {
             deliveryOrderProductDao.remove(deliveryOrderProduct.getId());
         });

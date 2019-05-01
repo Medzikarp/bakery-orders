@@ -53,4 +53,6 @@ public class Category extends PersistentObject {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }

@@ -32,6 +32,12 @@ public class DeliveryOrderEndpoint {
     }
 
     @GET
+    public Response getOrders() {
+        List<DeliveryOrder> deliveryOrders = deliveryOrderService.findAll();
+        return Response.ok(deliveryOrders).build();
+    }
+
+    @GET
     @Path("/{id}")
     public Response get(@PathParam("id") Long id) {
         DeliveryOrder deliveryOrder = deliveryOrderService.findById(id);

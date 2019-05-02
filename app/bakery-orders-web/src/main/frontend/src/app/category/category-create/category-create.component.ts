@@ -31,7 +31,7 @@ export class CategoryCreateComponent {
 
         this.form = fb.group({
             'name': [null, Validators.required],
-            'description': [null]
+            'description': [null, [Validators.required, Validators.maxLength(200), Validators.minLength(5)]]
         });
     }
 
@@ -57,6 +57,13 @@ export class CategoryCreateComponent {
     getNameErrorMessage() {
         return this.form.get('name').hasError('required') ? 'You must enter a value' :
             '';
+    }
+
+    getDescriptionErrorMessage() {
+        return this.form.get('description').hasError('required') ? 'You must enter a value' :
+            this.form.get('description').hasError('maxlength') ? 'Size of description must be between 5 and 200 characters' :
+                this.form.get('description').hasError('minlength') ? 'Size of description must be between 5 and 200 characters' :
+                    '';
     }
 
     private fetchExistingCategory() {

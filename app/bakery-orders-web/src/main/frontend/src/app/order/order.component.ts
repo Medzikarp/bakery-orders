@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OrderService} from "../services/order.service";
-import DateTimeFormat = Intl.DateTimeFormat;
+
 
 @Component({
     selector: 'app-order',
@@ -19,7 +19,6 @@ export class OrderComponent implements OnInit {
                 console.log(orders);
                 this.dataSource = orders;
                 this.processUserName();
-                console.log(this.dataSource);
             },
             error => console.log(error)
         );

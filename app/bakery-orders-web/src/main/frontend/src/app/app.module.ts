@@ -13,6 +13,7 @@ import {CategoryComponent} from './category/category.component';
 import {CategoryCreateComponent} from './category/category-create/category-create.component';
 import {MaterialFileInputModule} from 'ngx-material-file-input';
 import {OrderComponent} from './order/order.component';
+import { OrderCreateComponent } from './order/order-create/order-create.component';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
     {path: 'category', component: CategoryComponent},
     {path: 'category/create', component: CategoryCreateComponent},
     {path: 'category/:id', component: CategoryCreateComponent},
+    {path: 'order/create', component: OrderCreateComponent},
     {path: 'order', component: OrderComponent}
 
 ];
@@ -34,7 +36,8 @@ const appRoutes: Routes = [
         ProductCreateComponent,
         CategoryComponent,
         CategoryCreateComponent,
-        OrderComponent
+        OrderComponent,
+        OrderCreateComponent
     ],
     imports: [
         BrowserModule,

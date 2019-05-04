@@ -1,5 +1,6 @@
 package org.bakery.orders.service;
 
+import org.bakery.orders.builder.UserBuilder;
 import org.bakery.orders.entity.DeliveryOrder;
 import org.bakery.orders.entity.User;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -9,11 +10,11 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 
 /**
  * Created by Lukas Kotol on 04.04.2019.
@@ -44,32 +45,39 @@ public class DeliveryOrderServiceTest {
 
     @Test
     public void createDeliveryOrderTest() {
-        DeliveryOrder deliveryOrder = getSampleOrder();
+        User user = getSampleUser();
+        userService.create(user);
+        DeliveryOrder deliveryOrder = getSampleOrder(user);
         deliveryOrderService.create(deliveryOrder);
         Assert.assertEquals(1, deliveryOrderService.findAll().size());
     }
 
     @Test
     public void addUserToDeliveryOrderTest() {
-        DeliveryOrder deliveryOrder = getSampleOrder();
-        deliveryOrderService.create(deliveryOrder);
         User user = getSampleUser();
         userService.create(user);
-        deliveryOrderService.addUserToDeliveryOrder(deliveryOrder.getId(), user.getId());
+        DeliveryOrder deliveryOrder = getSampleOrder(user);
+        deliveryOrder.setUser(user);
+        deliveryOrderService.create(deliveryOrder);
         DeliveryOrder expected = deliveryOrderService.findById(deliveryOrder.getId());
         Assert.assertEquals(user.getName(), expected.getUser().getName());
     }
 
-    private DeliveryOrder getSampleOrder() {
+    private DeliveryOrder getSampleOrder(User user) {
         DeliveryOrder deliveryOrder = new DeliveryOrder();
+        deliveryOrder.setUser(user);
         deliveryOrder.setName("Objednavka 1");
+        deliveryOrder.setCreatedAt(LocalDateTime.now());
         return deliveryOrder;
     }
 
     private User getSampleUser() {
-        User user = new User();
-        user.setName("Jan Novak");
-        return user;
+        return  UserBuilder.anUser()
+                .withEmail("test@test.com")
+                .withName("Jan Novak")
+                .withPasswordHash("qiyh4XPJGsOZ2MEAyLkfWqeQ")
+                .withDeliveryAddress("Kanadska 3, Brno")
+                .build();
     }
 
 }

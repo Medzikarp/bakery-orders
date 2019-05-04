@@ -1,6 +1,6 @@
 package org.bakery.orders.dao;
 
-import org.bakery.orders.dao.UserDao;
+import org.bakery.orders.builder.UserBuilder;
 import org.bakery.orders.entity.User;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -71,9 +71,12 @@ public class UserDaoTest {
     }
 
     private User getSampleUser() {
-        User user = new User();
-        user.setName("Jan Novak");
-        return user;
+        return  UserBuilder.anUser()
+                .withEmail("test@test.com")
+                .withName("Jan Novak")
+                .withPasswordHash("qiyh4XPJGsOZ2MEAyLkfWqeQ")
+                .withDeliveryAddress("Kanadska 3, Brno")
+                .build();
     }
 
 }

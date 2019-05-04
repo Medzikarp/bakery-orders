@@ -2,31 +2,44 @@ package org.bakery.orders.entity;
 
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 /**
  * Created by Lukas Kotol on 30.03.2019.
  */
 
 @Entity
-public class DeliveryOrder {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class DeliveryOrder extends PersistentObject {
 
     @Column
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @NotNull
+    @Valid
     private User user;
 
-    public Long getId() {
-        return id;
+    @Column
+    @NotNull
+    private LocalDateTime createdAt;
+
+    @Column
+    private LocalDateTime updatedAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 8)
+    private State state;
+
+    public State getState() {
+        return state;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setState(State state) {
+        this.state = state;
     }
+
 
     public String getName() {
         return name;
@@ -44,6 +57,27 @@ public class DeliveryOrder {
         this.user = user;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    @PreUpdate
+    public void setUpdatedAt() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
         return "DeliveryOrder{" +
@@ -52,4 +86,11 @@ public class DeliveryOrder {
                 ", user=" + user +
                 '}';
     }
+}
+
+enum State {
+    CONFIRMED,
+    UNCONFIRMED,
+    REFUSED,
+    PAID
 }

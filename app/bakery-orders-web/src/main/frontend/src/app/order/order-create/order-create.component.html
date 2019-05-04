@@ -1,0 +1,15 @@
+<div class="order-create-container">
+    <h1 class="mat-h1">
+        Create order
+    </h1>
+    <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
+
+        <!-- Name -->
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Name" formControlName="name" required>
+            <mat-error *ngIf="form.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+        <button class="example-full-width" mat-raised-button color="primary" [disabled]="!form.valid">Add</button>
+    </form>
+</div>

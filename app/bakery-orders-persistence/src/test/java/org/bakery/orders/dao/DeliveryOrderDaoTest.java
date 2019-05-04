@@ -1,6 +1,8 @@
 package org.bakery.orders.dao;
 
+import org.bakery.orders.builder.UserBuilder;
 import org.bakery.orders.entity.DeliveryOrder;
+import org.bakery.orders.entity.User;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -15,6 +17,7 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
+import java.time.LocalDateTime;
 
 
 /**
@@ -36,17 +39,24 @@ public class DeliveryOrderDaoTest {
     @Inject
     private DeliveryOrderDao deliveryOrderDao;
 
+    @Inject
+    private UserDao userDao;
+
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void beforeEach() {
         deliveryOrderDao.removeAll();
+        userDao.removeAll();
     }
 
     @Test
     public void createOrderTest() {
-        DeliveryOrder deliveryOrder = getSampleOrder();
+        User user = getSampleUser();
+        DeliveryOrder deliveryOrder = getSampleOrder(user);
+        userDao.create(user);
         deliveryOrderDao.create(deliveryOrder);
         Assert.assertEquals(1, deliveryOrderDao.findAll().size());
         Assert.assertEquals(deliveryOrder.getName(), deliveryOrderDao.findAll().get(0).getName());
@@ -55,14 +65,19 @@ public class DeliveryOrderDaoTest {
 
     @Test
     public void deleteAllOrderTest() {
-        deliveryOrderDao.create(getSampleOrder());
+        User user = getSampleUser();
+        DeliveryOrder deliveryOrder = getSampleOrder(user);
+        userDao.create(user);
+        deliveryOrderDao.create(deliveryOrder);
         deliveryOrderDao.removeAll();
         Assert.assertEquals(0, deliveryOrderDao.findAll().size());
     }
 
     @Test
     public void updateOrderTest() {
-        DeliveryOrder deliveryOrder = getSampleOrder();
+        User user = getSampleUser();
+        DeliveryOrder deliveryOrder = getSampleOrder(user);
+        userDao.create(user);
         deliveryOrderDao.create(deliveryOrder);
         deliveryOrder.setName("Zmena");
         deliveryOrderDao.update(deliveryOrder);
@@ -72,7 +87,9 @@ public class DeliveryOrderDaoTest {
 
     @Test
     public void deleteOrderTest() {
-        DeliveryOrder deliveryOrder = getSampleOrder();
+        User user = getSampleUser();
+        DeliveryOrder deliveryOrder = getSampleOrder(user);
+        userDao.create(user);
         deliveryOrderDao.create(deliveryOrder);
         deliveryOrderDao.remove(deliveryOrder.getId());
         Assert.assertEquals(0, deliveryOrderDao.findAll().size());
@@ -84,9 +101,19 @@ public class DeliveryOrderDaoTest {
         deliveryOrderDao.searchByUser(null);
     }
 
-    private DeliveryOrder getSampleOrder() {
+    private User getSampleUser() {
+        return UserBuilder.anUser().withEmail("test@test.com")
+                .withName("Jan Novak")
+                .withPasswordHash("qiyh4XPJGsOZ2MEAyLkfWqeQ")
+                .withDeliveryAddress("Kanadska 3, Brno")
+                .build();
+    }
+
+    private DeliveryOrder getSampleOrder(User user) {
         DeliveryOrder deliveryOrder = new DeliveryOrder();
+        deliveryOrder.setUser(user);
         deliveryOrder.setName("Objednavka 1");
+        deliveryOrder.setCreatedAt(LocalDateTime.now());
         return deliveryOrder;
     }
 

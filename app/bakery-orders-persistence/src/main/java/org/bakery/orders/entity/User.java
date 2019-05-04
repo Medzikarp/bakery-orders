@@ -1,8 +1,14 @@
 package org.bakery.orders.entity;
 
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by Lukas Kotol on 03.04.2019.
@@ -12,20 +18,30 @@ import javax.persistence.Entity;
 public class User extends PersistentObject {
 
     @Column
+    @NotNull
+    @Size(min = 3, max = 40)
     private String name;
 
     @Column
+    @Email
+    @NotNull
     private String email;
 
     @Column
+    @NotNull
     private String passwordHash;
 
     @Column
+    @NotNull
     private String deliveryAddress;
 
     @Column
+    @Size(min = 8, max = 14)
     private String phone;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 8)
+    private UserRole userRole;
 
     public String getName() {
         return name;
@@ -66,4 +82,11 @@ public class User extends PersistentObject {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
+}
+
+enum UserRole {
+    ADMIN,
+    CUSTOMER
 }

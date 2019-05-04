@@ -1,0 +1,19 @@
+table {
+    min-width: 500px;
+}
+
+.link-container {
+    margin-top: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+td {
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+}

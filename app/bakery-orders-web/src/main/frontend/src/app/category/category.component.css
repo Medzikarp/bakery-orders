@@ -1,0 +1,16 @@
+table {
+  min-width: 500px;
+}
+
+.link-container {
+    margin-top: 10px;
+}
+
+
+td {
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+}

@@ -1,6 +1,7 @@
 package org.bakery.orders.builder;
 
 import org.bakery.orders.entity.DeliveryOrder;
+import org.bakery.orders.entity.State;
 import org.bakery.orders.entity.User;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ public final class DeliveryOrderBuilder {
     private User user;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private State state;
 
     private DeliveryOrderBuilder() {
     }
@@ -41,12 +43,18 @@ public final class DeliveryOrderBuilder {
         return this;
     }
 
+    public DeliveryOrderBuilder withState(State state) {
+        this.state = state;
+        return this;
+    }
+
     public DeliveryOrder build() {
         DeliveryOrder deliveryOrder = new DeliveryOrder();
         deliveryOrder.setName(name);
         deliveryOrder.setUser(user);
         deliveryOrder.setCreatedAt(createdAt);
         deliveryOrder.setUpdatedAt(updatedAt);
+        deliveryOrder.setState(state);
         return deliveryOrder;
     }
 }

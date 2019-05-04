@@ -4,10 +4,7 @@ import org.bakery.orders.builder.CategoryBuilder;
 import org.bakery.orders.builder.DeliveryOrderBuilder;
 import org.bakery.orders.builder.ProductBuilder;
 import org.bakery.orders.builder.UserBuilder;
-import org.bakery.orders.entity.Category;
-import org.bakery.orders.entity.DeliveryOrder;
-import org.bakery.orders.entity.Product;
-import org.bakery.orders.entity.User;
+import org.bakery.orders.entity.*;
 import org.bakery.orders.service.*;
 
 import javax.annotation.PostConstruct;
@@ -49,9 +46,9 @@ public class DatabaseSetup {
                 .build();
         userService.create(user1);
 
-        DeliveryOrder order1 = deliveryOrderService.create(DeliveryOrderBuilder.aDeliveryOrder().withUser(user1).withName("DeliveryOrder 1").build());
-        DeliveryOrder order2 = deliveryOrderService.create(DeliveryOrderBuilder.aDeliveryOrder().withUser(user1).withName("DeliveryOrder 2").build());
-        DeliveryOrder order3 = deliveryOrderService.create(DeliveryOrderBuilder.aDeliveryOrder().withUser(user1).withName("DeliveryOrder 3").build());
+        DeliveryOrder order1 = deliveryOrderService.create(DeliveryOrderBuilder.aDeliveryOrder().withUser(user1).withName("DeliveryOrder 1").withState(State.UNCONFIRMED).build());
+        DeliveryOrder order2 = deliveryOrderService.create(DeliveryOrderBuilder.aDeliveryOrder().withUser(user1).withName("DeliveryOrder 2").withState(State.CONFIRMED).build());
+        DeliveryOrder order3 = deliveryOrderService.create(DeliveryOrderBuilder.aDeliveryOrder().withUser(user1).withName("DeliveryOrder 3").withState(State.CONFIRMED).build());
 
         Category category1 = categoryService.create(CategoryBuilder.aCategory().withDescription("Category Description 1").withName("Category name1").build());
         Category category2 = categoryService.create(CategoryBuilder.aCategory().withDescription("Category Description 2").withName("Category name2").build());

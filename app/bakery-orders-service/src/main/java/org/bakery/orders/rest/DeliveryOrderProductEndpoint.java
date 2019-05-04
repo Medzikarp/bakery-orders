@@ -1,12 +1,14 @@
 package org.bakery.orders.rest;
 
 import org.bakery.orders.entity.DeliveryOrderProduct;
+import org.bakery.orders.model.DeliveryOrderProducts;
 import org.bakery.orders.service.DeliveryOrderProductService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -20,7 +22,6 @@ public class DeliveryOrderProductEndpoint {
 
     @Inject
     private DeliveryOrderProductService deliveryOrderProductService;
-
 
 
     @GET
@@ -60,6 +61,20 @@ public class DeliveryOrderProductEndpoint {
         try {
             DeliveryOrderProduct added = deliveryOrderProductService.associate(deliveryOrderProduct.getDeliveryOrder().getId(), deliveryOrderProduct.getProduct().getId(), deliveryOrderProduct.getQuantity());
             return Response.ok(added).build();
+        } catch (IllegalArgumentException ex) {
+            return Response.status(404).entity(ex.getMessage()).build();
+        }
+    }
+
+    @POST
+    @Path("/addMultiple")
+    public Response add(DeliveryOrderProducts deliveryOrderProducts) {
+        List<DeliveryOrderProduct> created = new LinkedList<>();
+        try {
+            deliveryOrderProducts.getDeliveryOrderProducts().forEach(deliveryOrderProduct -> {
+                created.add(deliveryOrderProductService.associate(deliveryOrderProduct.getDeliveryOrder().getId(), deliveryOrderProduct.getProduct().getId(), deliveryOrderProduct.getQuantity()));
+            });
+            return Response.ok(created).build();
         } catch (IllegalArgumentException ex) {
             return Response.status(404).entity(ex.getMessage()).build();
         }

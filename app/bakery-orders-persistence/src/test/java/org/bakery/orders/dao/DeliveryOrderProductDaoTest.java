@@ -4,10 +4,7 @@ import org.bakery.orders.builder.DeliveryOrderBuilder;
 import org.bakery.orders.builder.DeliveryOrderProductBuilder;
 import org.bakery.orders.builder.ProductBuilder;
 import org.bakery.orders.builder.UserBuilder;
-import org.bakery.orders.entity.DeliveryOrder;
-import org.bakery.orders.entity.DeliveryOrderProduct;
-import org.bakery.orders.entity.Product;
-import org.bakery.orders.entity.User;
+import org.bakery.orders.entity.*;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -142,6 +139,7 @@ public class DeliveryOrderProductDaoTest {
                 .withName("order1")
                 .withCreatedAt(LocalDateTime.now())
                 .withUser(user)
+                .withState(State.UNCONFIRMED)
                 .build();
     }
 

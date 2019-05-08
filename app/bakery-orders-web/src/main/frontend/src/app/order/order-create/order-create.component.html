@@ -1,6 +1,7 @@
 <div class="order-create-container">
     <h1 class="mat-h1">
-        Create order
+        <div *ngIf="order.id == null; else updateHeader">Add order</div>
+        <ng-template #updateHeader>Update order</ng-template>
     </h1>
     <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
 
@@ -14,18 +15,21 @@
         <div *ngFor="let productOrder of productOrders">
             <mat-form-field class="margin-right">
                 <mat-select placeholder="Product" formControlName="productOrder{{productOrder.inputId}}">
-                    <mat-option *ngFor="let product of productList" [value]="product">{{product.name}}</mat-option>
+                    <mat-option *ngFor="let product of productList" [value]="product.id">{{product.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field>
-                <input placeholder="Quantity" matInput formControlName="quantityOrder{{productOrder.inputId}}" type="number">
+                <input placeholder="Quantity" matInput formControlName="quantityOrder{{productOrder.inputId}}" type="number" min="0">
             </mat-form-field>
         </div>
 
         <button type="button" class="margin-right margin-bottom" mat-raised-button color="primary" (click)="addProduct()">Add product</button>
         <button type="button" mat-raised-button color="warn" (click)="deleteProduct()">Delete product</button>
 
-        <button class="example-full-width" mat-raised-button color="primary" [disabled]="!form.valid">Create</button>
+        <button class="example-full-width" mat-raised-button color="primary" [disabled]="checkValid()">
+            <div *ngIf="order.id == null; else updateButton">Add</div>
+            <ng-template #updateButton>Update</ng-template>
+        </button>
     </form>
 </div>

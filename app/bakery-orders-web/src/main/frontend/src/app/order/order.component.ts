@@ -9,7 +9,7 @@ import {OrderService} from "../services/order.service";
 })
 export class OrderComponent implements OnInit {
 
-    displayedColumns: string[] = ['name', 'userName', 'dateTime', 'state'];
+    displayedColumns: string[] = ['name', 'userName', 'dateTime', 'state', 'actions'];
     dataSource;
     dateFormat = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
 

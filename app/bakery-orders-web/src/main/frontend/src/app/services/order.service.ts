@@ -4,6 +4,7 @@ import {Product} from "../model/product";
 import {Observable} from "rxjs";
 import {Order} from "../model/order";
 import {DeliveryOrderProducts} from "../model/delivery-order-products";
+import {Category} from "../model/category";
 
 @Injectable({
     providedIn: 'root'
@@ -28,9 +29,19 @@ export class OrderService {
     }
 
     addProductsToOrder(productsOrder: DeliveryOrderProducts) {
-        console.log(productsOrder);
         return this.httpClient.post<DeliveryOrderProducts>(this.baseUrl + '/orderProduct/addMultiple', productsOrder, this.options);
     }
 
+    getProductsByOrder(id: number) {
+        return this.httpClient.get(this.baseUrl + '/orderProduct/order/' + id);
+    }
+
+    getOrder(id: number): Observable<Order> {
+        return this.httpClient.get<Order>(this.baseUrl + '/order/' + id);
+    }
+
+    updateOrder(order: Order): Observable<Order> {
+        return this.httpClient.put<Order>(this.baseUrl + '/order/' + order.id, order, this.options);
+    }
 
 }

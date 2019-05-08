@@ -70,10 +70,15 @@ public class DeliveryOrderProductEndpoint {
     @Path("/addMultiple")
     public Response add(DeliveryOrderProducts deliveryOrderProducts) {
         List<DeliveryOrderProduct> created = new LinkedList<>();
+
+        // find preset DeliveryOrdersProducts
+        List<DeliveryOrderProduct> toDelete = deliveryOrderProductService.searchByDeliveryOrder(deliveryOrderProducts.getDeliveryOrderProducts().get(0).getDeliveryOrder().getId());
+
+        // delete preset DeliveryOrdersProducts
+        toDelete.forEach(deliveryOrderProduct -> deliveryOrderProductService.remove(deliveryOrderProduct));
+
         try {
-            deliveryOrderProducts.getDeliveryOrderProducts().forEach(deliveryOrderProduct -> {
-                created.add(deliveryOrderProductService.associate(deliveryOrderProduct.getDeliveryOrder().getId(), deliveryOrderProduct.getProduct().getId(), deliveryOrderProduct.getQuantity()));
-            });
+            deliveryOrderProducts.getDeliveryOrderProducts().forEach(deliveryOrderProduct -> created.add(deliveryOrderProductService.associate(deliveryOrderProduct.getDeliveryOrder().getId(), deliveryOrderProduct.getProduct().getId(), deliveryOrderProduct.getQuantity())));
             return Response.ok(created).build();
         } catch (IllegalArgumentException ex) {
             return Response.status(404).entity(ex.getMessage()).build();

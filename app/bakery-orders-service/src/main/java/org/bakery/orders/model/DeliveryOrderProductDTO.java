@@ -19,7 +19,7 @@ public class DeliveryOrderProductDTO {
 
     private Long quantity;
 
-    private Long inputId;
+    private String inputId;
 
     public DeliveryOrder getDeliveryOrder() {
         return order;
@@ -45,11 +45,11 @@ public class DeliveryOrderProductDTO {
         this.quantity = quantity;
     }
 
-    public Long getInputId() {
+    public String getInputId() {
         return inputId;
     }
 
-    public void setInputId(Long inputId) {
+    public void setInputId(String inputId) {
         this.inputId = inputId;
     }
 }

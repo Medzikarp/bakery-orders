@@ -3,11 +3,14 @@ package org.bakery.orders.rest;
 import org.bakery.orders.entity.Product;
 import org.bakery.orders.service.ProductService;
 
+import javax.annotation.Resource;
+import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * Created by Lukas Kotol on 20.04.2019.
@@ -20,6 +23,9 @@ public class ProductEndpoint {
 
     @Inject
     private ProductService productService;
+
+    @Resource(name = "DefaultManagedExecutorService")
+    ManagedExecutorService executor;
 
     @GET
     @Path("/category/{id}")
@@ -50,8 +56,8 @@ public class ProductEndpoint {
     public Response createProduct(Product product) {
         Response.ResponseBuilder builder;
         try {
-            Product created = productService.create(product);
-            builder = Response.ok(created);
+            Future<Product> created = productService.createAsync(product);
+            builder = Response.ok(created.get());
         } catch (Exception e) {
             builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());
         }

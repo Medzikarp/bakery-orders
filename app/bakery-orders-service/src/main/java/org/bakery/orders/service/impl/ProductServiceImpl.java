@@ -7,10 +7,13 @@ import org.bakery.orders.entity.Product;
 import org.bakery.orders.service.ProductService;
 import org.jboss.logging.Logger;
 
+import javax.ejb.AsyncResult;
+import javax.ejb.Asynchronous;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * Created by Lukas Kotol on 16.04.2019.
@@ -35,6 +38,14 @@ public class ProductServiceImpl implements ProductService {
         Product created = productDao.create(product);
         LOGGER.info("Product created with id " + created.getId());
         return created;
+    }
+
+    @Override
+    @Asynchronous
+    public Future<Product> createAsync(Product product) {
+        Product created = productDao.create(product);
+        LOGGER.info("Product created with id " + created.getId());
+        return new AsyncResult<>(created);
     }
 
     @Override

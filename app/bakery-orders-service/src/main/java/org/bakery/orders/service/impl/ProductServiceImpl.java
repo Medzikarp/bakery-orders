@@ -4,13 +4,18 @@ import org.bakery.orders.dao.CategoryDao;
 import org.bakery.orders.dao.DeliveryOrderProductDao;
 import org.bakery.orders.dao.ProductDao;
 import org.bakery.orders.entity.Product;
+import org.bakery.orders.listeners.RemoveProductListener;
 import org.bakery.orders.service.ProductService;
 import org.jboss.logging.Logger;
 
+import javax.annotation.Resource;
 import javax.ejb.AsyncResult;
 import javax.ejb.Asynchronous;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.jms.JMSContext;
+import javax.jms.Message;
+import javax.jms.Queue;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -32,6 +37,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Inject
     private CategoryDao categoryDao;
+
+    @Inject
+    private JMSContext jmsContext;
+
+    @Resource(lookup = RemoveProductListener.QUEUE_JNDI)
+    private Queue queue;
 
     @Override
     public Product create(Product product) {
@@ -62,6 +73,13 @@ public class ProductServiceImpl implements ProductService {
             deliveryOrderProductDao.remove(deliveryOrderProduct.getId());
         });
         productDao.remove(product.getId());
+    }
+
+    @Override
+    public void removeByJMS(Product product) {
+        product.setCategories(null);
+        Message message = jmsContext.createObjectMessage(product);
+        jmsContext.createProducer().send(queue, message);
     }
 
     @Override

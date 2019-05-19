@@ -290,7 +290,9 @@
                         <derby.stream.error.file>
                             ${project.build.directory}/derby.log
                         </derby.stream.error.file>
+
                     </systemPropertyVariables>
+
                 </configuration>
             </plugin>
             <plugin>

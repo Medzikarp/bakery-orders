@@ -85,7 +85,7 @@ public class ProductEndpoint {
         Response.ResponseBuilder builder;
         Product product = productService.findById(id);
         try {
-            productService.remove(product);
+            productService.removeByJMS(product);
             builder = Response.ok();
         } catch (Exception e) {
             builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());

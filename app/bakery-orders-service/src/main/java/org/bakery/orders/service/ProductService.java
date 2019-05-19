@@ -12,5 +12,7 @@ import java.util.concurrent.Future;
 public interface ProductService extends GenericCRUDService<Product, Long> {
     Future<Product> createAsync(Product product);
 
+    void removeByJMS(Product product);
+
     List<Product> searchByCategory(@NotNull Long id);
 }

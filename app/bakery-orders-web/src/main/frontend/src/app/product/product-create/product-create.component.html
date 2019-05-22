@@ -10,13 +10,17 @@
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-            <input matInput type="number" placeholder="Cost" formControlName="cost" required min="0">
+            <input matInput type="number" placeholder="Cost" formControlName="cost" required min="0" (change)="onTotalCostChange()" (keyup)="onTotalCostChange()">
             <mat-error *ngIf="form.get('cost').invalid">{{getCostErrorMessage()}}</mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-            <input matInput type="number" placeholder="Tax" formControlName="tax" required min="0">
+            <input matInput type="number" placeholder="Tax" formControlName="tax" required min="0" (change)="onTotalCostChange()" (keyup)="onTotalCostChange()">
             <mat-error *ngIf="form.get('cost').invalid">{{getTaxErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <input matInput disabled placeholder="Total cost" formControlName="total">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">

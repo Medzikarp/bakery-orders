@@ -89,12 +89,14 @@ export class ProductCreateComponent {
     private createForm(fb: FormBuilder) {
         this.form = fb.group({
             'name': [null, Validators.required],
-            'cost': [null, Validators.required],
-            'tax': [null, Validators.required],
+            'cost': [null, [Validators.required, Validators.min(0)]],
+            'tax': [null, [Validators.required, Validators.min(0)]],
             'description': [null, [Validators.required, Validators.maxLength(200), Validators.minLength(5)]],
             'categories': [],
-            'file': [null]
+            'file': [null],
+            'total': [null]
         });
+        this.form.get('total').disable();
     }
 
     private fetchExistingProduct() {
@@ -107,7 +109,8 @@ export class ProductCreateComponent {
                     'tax': product.tax,
                     'description': product.description,
                     'categories': product.categories,
-                    'file': null
+                    'file': null,
+                    'total': this.computeTotalCost(product.cost, product.tax)
                 });
                 this.tmpImg = 'http://localhost:8080/images/products/' + product.id + product.image;
             }
@@ -173,12 +176,14 @@ export class ProductCreateComponent {
 
     getCostErrorMessage() {
         return this.form.get('cost').hasError('required') ? 'You must enter a value' :
-            '';
+            this.form.get('cost').hasError('min') ? 'Cost must be positive' :
+                '';
     }
 
     getTaxErrorMessage() {
         return this.form.get('tax').hasError('required') ? 'You must enter a value' :
-            '';
+            this.form.get('tax').hasError('min') ? 'Tax must be positive' :
+                '';
     }
 
     getDescriptionErrorMessage() {
@@ -207,6 +212,18 @@ export class ProductCreateComponent {
                 });
             }
         );
+    }
+
+    private computeTotalCost(cost, tax) {
+        if (cost < 0 || tax < 0) {
+            return 'Incorrect input, cost and tax must be positive.';
+        }
+        return Math.round(((cost / 100) * tax) + cost).toFixed(2);
+    }
+
+    onTotalCostChange() {
+        let newCost = this.computeTotalCost(this.form.get('cost').value, this.form.get('tax').value);
+        this.form.get('total').setValue(newCost);
     }
 
 }

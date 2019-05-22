@@ -33,52 +33,27 @@ export class OrderCreateComponent implements OnInit {
             this.order.id = this.activatedRoute.snapshot.params.id;
         }
 
+        this.createForm();
         this.fetchProducts();
-
-
-        this.form = fb.group({
-            'name': [null, Validators.required],
-        });
     }
 
     ngOnInit() {
     }
 
+    private createForm() {
+        this.form = this.fb.group({
+            'name': [null, Validators.required],
+            'total': [{value: null, disabled: true}]
+        });
+    }
+
     onSubmit() {
         let order = this.getOrderFromForm();
-        if (this.order.id != null) {
+        if (this.order.id != null) { // update order
             order.id = this.order.id;
-            this.orderService.updateOrder(order).subscribe(
-                data => {
-                    let deliveryProducts = new DeliveryOrderProducts();
-                    this.productOrders.forEach(productOrder => {
-                        productOrder.deliveryOrder = new Order();
-                        productOrder.deliveryOrder.id = data.id;
-                    });
-                    deliveryProducts.deliveryOrderProducts = this.productOrders;
-                    this.orderService.addProductsToOrder(deliveryProducts).subscribe(
-                        result => {
-                            this.navigateUrlAndOpenSnack('/order', 'Order updated!');
-                        }
-                    );
-                }
-            );
-        } else {
-            this.orderService.createOrder(order).subscribe(
-                data => {
-                    let deliveryProducts = new DeliveryOrderProducts();
-                    this.productOrders.forEach(productOrder => {
-                        productOrder.deliveryOrder = new Order();
-                        productOrder.deliveryOrder.id = data.id;
-                    });
-                    deliveryProducts.deliveryOrderProducts = this.productOrders;
-                    this.orderService.addProductsToOrder(deliveryProducts).subscribe(
-                        result => {
-                            this.navigateUrlAndOpenSnack('/order', 'Order created!');
-                        }
-                    );
-                }
-            );
+            this.orderService.updateOrder(order).subscribe(order => this.addProductToOrder(order, 'Order updated!'));
+        } else { // create new order
+            this.orderService.createOrder(order).subscribe(order => this.addProductToOrder(order, 'Order created!'));
         }
 
     }
@@ -96,6 +71,23 @@ export class OrderCreateComponent implements OnInit {
         return order;
     }
 
+    private getDeliveryProductsFromForm(order: Order) {
+        let deliveryProducts = new DeliveryOrderProducts();
+        this.productOrders.forEach(productOrder => {
+            productOrder.deliveryOrder = new Order();
+            productOrder.deliveryOrder.id = order.id;
+        });
+        deliveryProducts.deliveryOrderProducts = this.productOrders;
+        return deliveryProducts;
+    }
+
+    private addProductToOrder(order: Order, message: string) {
+        let deliveryProducts = this.getDeliveryProductsFromForm(order);
+        this.orderService.addProductsToOrder(deliveryProducts).subscribe(
+            () => this.navigateUrlAndOpenSnack('/order', message)
+        );
+    }
+
     private navigateUrlAndOpenSnack(url: string, message: string) {
         this.router.navigateByUrl(url).then(
             () => {
@@ -109,13 +101,6 @@ export class OrderCreateComponent implements OnInit {
     getNameErrorMessage() {
         return this.form.get('name').hasError('required') ? 'You must enter a value' :
             '';
-    }
-
-    getQuantityErrorMessage(quantityName: string) {
-        console.log(quantityName);
-        return this.form.get(quantityName).hasError('required') ? 'You must enter a value' :
-            this.form.get(quantityName).hasError('min') ? 'Value must be positive' :
-                '';
     }
 
     private fetchProducts() {
@@ -132,21 +117,22 @@ export class OrderCreateComponent implements OnInit {
     addProduct(productOrder: ProductOrder = new ProductOrder()) {
         if (productOrder.product != null) {
             this.form.addControl('productOrder' + productOrder.inputId, new FormControl(productOrder.product.id, Validators.required));
-            this.form.addControl('quantityOrder' + productOrder.inputId, new FormControl(productOrder.quantity, [Validators.required, Validators.min(0)]));
+            this.form.addControl('quantityOrder' + productOrder.inputId, new FormControl(productOrder.quantity, [Validators.required, Validators.min(1)]));
         } else {
             productOrder.inputId = this.productOrders.length.toString();
             productOrder.deliveryOrder = new Order();
             productOrder.product = new Product();
-            this.form.addControl('productOrder' + productOrder.inputId, new FormControl('', Validators.required));
-            this.form.addControl('quantityOrder' + productOrder.inputId, new FormControl('', [Validators.required, Validators.min(0)]));
+            this.form.addControl('productOrder' + productOrder.inputId, new FormControl(null, Validators.required));
+            this.form.addControl('quantityOrder' + productOrder.inputId, new FormControl(1, [Validators.required, Validators.min(1)]));
             this.productOrders.push(productOrder);
         }
     }
 
     deleteProduct() {
-        this.productOrders.pop();
-        this.form.removeControl('productOrder' + this.productOrders.length);
-        this.form.removeControl('quantityOrder' + this.productOrders.length);
+        let productOrderToRemove = this.productOrders.pop();
+        this.form.removeControl('productOrder' + productOrderToRemove.inputId);
+        this.form.removeControl('quantityOrder' + productOrderToRemove.inputId);
+        this.onTotalCostChange();
     }
 
     private fetchExistingOrder() {
@@ -156,10 +142,11 @@ export class OrderCreateComponent implements OnInit {
                     let productOrder = new ProductOrder();
                     productOrder.quantity = data[dataKey].quantity;
                     productOrder.product = data[dataKey].product;
-                    productOrder.inputId = 'productOrderupdate' + data[dataKey].product.id;
+                    productOrder.inputId = 'Update' + data[dataKey].id;
                     this.addProduct(productOrder);
                     this.productOrders.push(productOrder);
                 }
+                this.form.get('total').setValue(this.computeOrderTotalCost());
             }
         );
         this.orderService.getOrder(this.order.id).subscribe(
@@ -170,6 +157,21 @@ export class OrderCreateComponent implements OnInit {
         );
     }
 
+    private computeProductTotalCost(cost, tax) {
+        return Math.round(((cost / 100) * tax) + cost);
+    }
+
+    private computeOrderTotalCost() {
+        let totalCost: number = 0;
+        this.productOrders.forEach((productOrder) => {
+            let product = this.productList.find(product => product.id === this.form.get('productOrder' + productOrder.inputId).value);
+            if (product != undefined) {
+                totalCost += this.computeProductTotalCost(product.cost, product.tax) * this.form.get('quantityOrder' + productOrder.inputId).value;
+            }
+        });
+        return totalCost.toFixed(2);
+    }
+
     checkValid() {
         if (this.productOrders.length <= 0) {
             return true;
@@ -177,4 +179,10 @@ export class OrderCreateComponent implements OnInit {
             return !this.form.valid;
         }
     }
+
+    onTotalCostChange() {
+        this.form.get('total').setValue(this.computeOrderTotalCost());
+    }
+
+
 }

@@ -56,8 +56,8 @@ public class DatabaseSetup {
 
 
         Product product1 = productService.create(ProductBuilder.aProduct().withCost(10L).withTax(5L).withDescription("Description 1").withName("Product 1").withCategories(Arrays.asList(category1)).build());
-        Product product2 = productService.create(ProductBuilder.aProduct().withCost(10L).withTax(5L).withDescription("Description 2").withName("Product 2").withCategories(Arrays.asList(category1, category2)).build());
-        Product product3 = productService.create(ProductBuilder.aProduct().withCost(10L).withTax(5L).withDescription("Description 3").withName("Product 3").withCategories(Arrays.asList(category1, category2, category3)).build());
+        Product product2 = productService.create(ProductBuilder.aProduct().withCost(100L).withTax(5L).withDescription("Description 2").withName("Product 2").withCategories(Arrays.asList(category1, category2)).build());
+        Product product3 = productService.create(ProductBuilder.aProduct().withCost(1000L).withTax(5L).withDescription("Description 3").withName("Product 3").withCategories(Arrays.asList(category1, category2, category3)).build());
 
         deliveryOrderProductService.associate(order1.getId(), product1.getId(), 2L);
         deliveryOrderProductService.associate(order1.getId(), product2.getId(), 2L);

@@ -1,6 +1,6 @@
 <div class="order-create-container">
     <h1 class="mat-h1">
-        <div *ngIf="order.id == null; else updateHeader">Add order</div>
+        <div *ngIf="order.id == null || isOrderCopied(); else updateHeader">Add order</div>
         <ng-template #updateHeader>Update order</ng-template>
     </h1>
     <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
@@ -33,7 +33,7 @@
 
 
         <button class="example-full-width" mat-raised-button color="primary" [disabled]="checkValid()">
-            <div *ngIf="order.id == null; else updateButton">Add</div>
+            <div *ngIf="order.id == null || isOrderCopied(); else updateButton">Add</div>
             <ng-template #updateButton>Update</ng-template>
         </button>
     </form>

@@ -34,4 +34,9 @@ export class OrderComponent implements OnInit {
         })
     }
 
+    onClickDelete(id: number) {
+        this.orderService.deleteOrder(id).subscribe(() => this.dataSource = this.dataSource.filter(item => item.id != id));
+    }
+
+
 }

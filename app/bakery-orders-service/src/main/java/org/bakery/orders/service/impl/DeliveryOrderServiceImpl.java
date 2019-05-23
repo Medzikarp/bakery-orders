@@ -51,6 +51,7 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
     @Override
     public void remove(DeliveryOrder deliveryOrder) {
         LOGGER.info("Removing DeliveryOrder with id " + deliveryOrder.getId());
+        deliveryOrderProductDao.searchByDeliveryOrder(deliveryOrder.getId()).forEach(deliveryOrderProduct -> deliveryOrderProductDao.remove(deliveryOrderProduct.getId()));
         deliveryOrderDao.remove(deliveryOrder.getId());
     }
 

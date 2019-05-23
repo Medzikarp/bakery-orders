@@ -24,6 +24,7 @@ const appRoutes: Routes = [
     {path: 'category/create', component: CategoryCreateComponent},
     {path: 'category/:id', component: CategoryCreateComponent},
     {path: 'order/create', component: OrderCreateComponent},
+    {path: 'order/copy/:id', component: OrderCreateComponent},
     {path: 'order/:id', component: OrderCreateComponent},
     {path: 'order', component: OrderComponent}
 

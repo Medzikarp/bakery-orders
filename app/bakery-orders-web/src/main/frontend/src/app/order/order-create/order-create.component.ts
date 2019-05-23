@@ -29,12 +29,13 @@ export class OrderCreateComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private snackBar: MatSnackBar) {
 
+
         if (this.activatedRoute.snapshot.params.id) {
             this.order.id = this.activatedRoute.snapshot.params.id;
         }
 
         this.createForm();
-        this.fetchProducts();
+        this.fetchData();
     }
 
     ngOnInit() {
@@ -49,7 +50,7 @@ export class OrderCreateComponent implements OnInit {
 
     onSubmit() {
         let order = this.getOrderFromForm();
-        if (this.order.id != null) { // update order
+        if (this.order.id != null && !this.isOrderCopied()) { // update order
             order.id = this.order.id;
             this.orderService.updateOrder(order).subscribe(order => this.addProductToOrder(order, 'Order updated!'));
         } else { // create new order
@@ -103,7 +104,7 @@ export class OrderCreateComponent implements OnInit {
             '';
     }
 
-    private fetchProducts() {
+    private fetchData() {
         this.productService.getProducts().subscribe(
             products => {
                 this.productList = products;
@@ -182,6 +183,10 @@ export class OrderCreateComponent implements OnInit {
 
     onTotalCostChange() {
         this.form.get('total').setValue(this.computeOrderTotalCost());
+    }
+
+    isOrderCopied(): boolean {
+        return this.activatedRoute.snapshot.url[1] != undefined && this.activatedRoute.snapshot.url[1].path == 'copy';
     }
 
 

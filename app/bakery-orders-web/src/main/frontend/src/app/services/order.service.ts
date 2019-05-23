@@ -44,4 +44,8 @@ export class OrderService {
         return this.httpClient.put<Order>(this.baseUrl + '/order/' + order.id, order, this.options);
     }
 
+    deleteOrder(id: number) {
+        return this.httpClient.delete(this.baseUrl + '/order/' + id);
+    }
+
 }

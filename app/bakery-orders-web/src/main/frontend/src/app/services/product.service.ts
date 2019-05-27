@@ -18,7 +18,7 @@ export class ProductService {
     }
 
     getProducts() {
-        return this.httpClient.get<Product>(this.baseUrl + '/product');
+        return this.httpClient.get(this.baseUrl + '/product');
     }
 
     getProduct(id: number): Observable<Product> {
@@ -35,6 +35,10 @@ export class ProductService {
 
     createProduct(product: Product): Observable<Product> {
         return this.httpClient.post<Product>(this.baseUrl + '/product', product, this.options)
+    }
+
+    getProductsByCategory(id: number) {
+        return this.httpClient.get(this.baseUrl + '/product/category/' + id);
     }
 
 }

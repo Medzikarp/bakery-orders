@@ -39,7 +39,7 @@ public class Product implements Serializable {
     private String image;
 
     @Column
-    @Size(min = 5, max = 200, message = "Description must be between 5 and 200 characters")
+    @Size(min = 5, max = 500, message = "Description must be between 5 and 500 characters")
     private String description;
 
     @ManyToMany(fetch = FetchType.EAGER)

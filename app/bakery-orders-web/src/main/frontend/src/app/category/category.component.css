@@ -1,16 +1,27 @@
 table {
-  min-width: 500px;
+    min-width: 500px;
 }
 
 .link-container {
     margin-top: 10px;
 }
 
-
 td {
     text-align: center;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .center {
     text-align: center;
+}
+
+.container {
+    margin-top: 80px;
+}
+
+.min-width-button {
+    min-width: 500px;
 }

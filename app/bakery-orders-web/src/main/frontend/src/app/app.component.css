@@ -1,15 +1,19 @@
 .fill-remaining-space {
-  /*This fills the remaining space, by using flexbox.
- Every toolbar row uses a flexbox row layout. */
-  flex: 1 1 auto;
+    /*This fills the remaining space, by using flexbox.
+   Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
 }
 
 .mat-toolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .container {
-  margin-top: 80px;
+    margin-top: 80px;
+}
+
+.full-width-page {
+    width: 100%;
 }

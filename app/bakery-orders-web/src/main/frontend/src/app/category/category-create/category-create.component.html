@@ -1,21 +1,27 @@
-<div class="category-create-container">
-    <h1 class="mat-h1">
-        Add category
-    </h1>
-    <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
+<div fxLayout="column" fxLayoutAlign="start center" class="container">
+    <div class="category-create-container">
+        <h1 class="mat-h1">
+            <div *ngIf="category.id == null; else updateHeader">Add category</div>
+            <ng-template #updateHeader>Update category</ng-template>
+        </h1>
+        <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
 
-        <!-- Name -->
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Name" formControlName="name" required>
-            <mat-error *ngIf="form.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
-        </mat-form-field>
+            <!-- Name -->
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Name" formControlName="name" required>
+                <mat-error *ngIf="form.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
+            </mat-form-field>
 
-        <!-- Description -->
-        <mat-form-field class="example-full-width">
-            <textarea matInput required minlength="5" maxlength="200" formControlName="description" placeholder="Description"></textarea>
-            <mat-error *ngIf="form.get('description').invalid">{{getDescriptionErrorMessage()}}</mat-error>
-        </mat-form-field>
+            <!-- Description -->
+            <mat-form-field class="example-full-width">
+                <textarea matInput required minlength="5" maxlength="200" formControlName="description" placeholder="Description"></textarea>
+                <mat-error *ngIf="form.get('description').invalid">{{getDescriptionErrorMessage()}}</mat-error>
+            </mat-form-field>
 
-        <button class="example-full-width" mat-raised-button color="primary" [disabled]="!form.valid">Add</button>
-    </form>
+            <button class="example-full-width" mat-raised-button color="primary" [disabled]="!form.valid">
+                <div *ngIf="category.id == null; else updateButton">Add</div>
+                <ng-template #updateButton>Update</ng-template>
+            </button>
+        </form>
+    </div>
 </div>

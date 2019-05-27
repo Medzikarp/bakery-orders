@@ -1,40 +1,42 @@
-<div class="order-create-container">
-    <h1 class="mat-h1">
-        <div *ngIf="order.id == null || isOrderCopied(); else updateHeader">Add order</div>
-        <ng-template #updateHeader>Update order</ng-template>
-    </h1>
-    <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
+<div fxLayout="column" fxLayoutAlign="start center" class="container">
+    <div class="order-create-container">
+        <h1 class="mat-h1">
+            <div *ngIf="order.id == null || isOrderCopied(); else updateHeader">Add order</div>
+            <ng-template #updateHeader>Update order</ng-template>
+        </h1>
+        <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
 
-        <!-- Name -->
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Name" formControlName="name" required>
-            <mat-error *ngIf="form.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
-        </mat-form-field>
-
-
-        <div *ngFor="let productOrder of productOrders">
-            <mat-form-field class="margin-right">
-                <mat-select placeholder="Product" formControlName="productOrder{{productOrder.inputId}}" (selectionChange)="onTotalCostChange()" required>
-                    <mat-option *ngFor="let product of productList" [value]="product.id">{{product.name}}</mat-option>
-                </mat-select>
+            <!-- Name -->
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Name" formControlName="name" required>
+                <mat-error *ngIf="form.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
             </mat-form-field>
 
-            <mat-form-field>
-                <input placeholder="Quantity" required matInput formControlName="quantityOrder{{productOrder.inputId}}" type="number" min="1" (change)="onTotalCostChange()" (keyup)="onTotalCostChange()">
+
+            <div *ngFor="let productOrder of productOrders">
+                <mat-form-field class="margin-right">
+                    <mat-select placeholder="Product" formControlName="productOrder{{productOrder.inputId}}" (selectionChange)="onTotalCostChange()" required>
+                        <mat-option *ngFor="let product of productList" [value]="product.id">{{product.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input placeholder="Quantity" required matInput formControlName="quantityOrder{{productOrder.inputId}}" type="number" min="1" (change)="onTotalCostChange()" (keyup)="onTotalCostChange()">
+                </mat-form-field>
+            </div>
+
+            <button type="button" class="margin-right margin-bottom" mat-raised-button color="primary" (click)="addProduct()">Add product</button>
+            <button type="button" mat-raised-button color="warn" (click)="deleteProduct()">Delete product</button>
+
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Total cost" formControlName="total">
             </mat-form-field>
-        </div>
-
-        <button type="button" class="margin-right margin-bottom" mat-raised-button color="primary" (click)="addProduct()">Add product</button>
-        <button type="button" mat-raised-button color="warn" (click)="deleteProduct()">Delete product</button>
-
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Total cost" formControlName="total">
-        </mat-form-field>
 
 
-        <button class="example-full-width" mat-raised-button color="primary" [disabled]="checkValid()">
-            <div *ngIf="order.id == null || isOrderCopied(); else updateButton">Add</div>
-            <ng-template #updateButton>Update</ng-template>
-        </button>
-    </form>
+            <button class="example-full-width" mat-raised-button color="primary" [disabled]="checkValid()">
+                <div *ngIf="order.id == null || isOrderCopied(); else updateButton">Add</div>
+                <ng-template #updateButton>Update</ng-template>
+            </button>
+        </form>
+    </div>
 </div>

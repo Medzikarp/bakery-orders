@@ -3374,6 +3374,19 @@ karma@~4.0.1:
     tmp "0.0.33"
     useragent "2.3.0"
 
+keycloak-angular@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/keycloak-angular/-/keycloak-angular-6.1.0.tgz#41d7c29d57bffddfea75e3e44c27e7e666e57398"
+  integrity sha512-TT3h6nWIXRf3u3NcEC25KBvgnZufpHaOKNfUUvt9Jk4p6zrDiKXxSIS8y+B1hg0kUhVsxzjXgSVngry39jljYw==
+  dependencies:
+    keycloak-js "^4.8.3"
+    tslib "^1.9.0"
+
+keycloak-js@^4.8.3:
+  version "4.8.3"
+  resolved "https://registry.yarnpkg.com/keycloak-js/-/keycloak-js-4.8.3.tgz#e065f41d144d260afa8466b5b587a65d5f308d30"
+  integrity sha512-TXoZdoOYu2ScYs58L95/xSYjsTto9KRvZ+vt6mv4Dyf4pYhYZSgwMPnmi128qj/z8sm4mL1Z8nncR6XdWgNKMQ==
+
 killable@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.1.tgz#4c8ce441187a061c7474fb87ca08e2a638194892"

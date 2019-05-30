@@ -1,4 +1,4 @@
-# Bakery orders web application
+    # Bakery orders web application
 
 # Setup
 - create directory ./standalone/tmp/images

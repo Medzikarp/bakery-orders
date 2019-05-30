@@ -7,22 +7,14 @@
         <groupId>org</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <packaging>war</packaging>
+
     <modelVersion>4.0.0</modelVersion>
-
-    <dependencies>
-        <dependency>
-            <groupId>org</groupId>
-            <artifactId>bakery-orders-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-
     <artifactId>bakery-orders-web</artifactId>
+    <packaging>war</packaging>
+
+
     <build>
         <finalName>${project.artifactId}</finalName>
-
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

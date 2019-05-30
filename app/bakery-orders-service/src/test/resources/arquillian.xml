@@ -13,7 +13,7 @@
         <configuration>
 
             <property name="allowConnectingToRunningServer">true</property>
-            <property name="jbossHome">C:\Users\lkotol\Documents\fi\wildfly\wildfly-14.0.1.Final</property>
+            <property name="jbossHome">/home/maper/Documents/wildfly-14.0.1.Final</property>
 
         </configuration>
 

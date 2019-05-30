@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     paginatorSize: number;
-    numberOfProductsDisplayedInPage: number = 4;
+    numberOfProductsDisplayedInPage: number = 8;
     allProducts: Array<Product>;
     showedProducts: Array<Product>;
     categories: Array<Category>;

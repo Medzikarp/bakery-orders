@@ -36,7 +36,7 @@
     </div>
 
     <div *ngIf="fetchingProducts; else productsFetched">
-        <mat-progress-bar class="smaller-progress-bar" mode="indeterminate"></mat-progress-bar>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
     <ng-template #productsFetched>
         <div *ngIf="allProducts != undefined && allProducts.length > 0; else noProduct">
@@ -47,7 +47,7 @@
                             <mat-card-header>
                                 <mat-card-title class="mat-card-title">{{product.name}}</mat-card-title>
                             </mat-card-header>
-                            <img mat-card-image [src]="'http://localhost:8080/images/products/' + product.id + product.image">
+                            <img mat-card-image [src]="imagesUrl + product.id + product.image">
                             <mat-card-content>
                                 <div class="card-text-content">
                                     {{product.description}}

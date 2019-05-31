@@ -7,6 +7,7 @@ import {Category} from "../../model/category";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FileService} from "../../services/file.service";
 import {MatSnackBar} from "@angular/material";
+import {MainService} from "../../services/main.service";
 
 @Component({
     selector: 'app-create-product',
@@ -19,6 +20,7 @@ export class ProductCreateComponent {
     selectedFile: File = null;
     tmpImg = null;
     product: Product = new Product();
+    imagesUrl: string = this.mainService.baseUrl + 'images/products/';
 
     constructor(private categoryService: CategoryService,
                 private productService: ProductService,
@@ -26,7 +28,8 @@ export class ProductCreateComponent {
                 private router: Router,
                 private fileService: FileService,
                 private snackBar: MatSnackBar,
-                private activatedRoute: ActivatedRoute
+                private activatedRoute: ActivatedRoute,
+                private mainService: MainService
     ) {
 
         this.fetchCategories();
@@ -112,7 +115,7 @@ export class ProductCreateComponent {
                     'file': null,
                     'total': this.computeTotalCost(product.cost, product.tax)
                 });
-                this.tmpImg = 'http://localhost:8080/images/products/' + product.id + product.image;
+                this.tmpImg = this.imagesUrl + product.id + product.image;
             }
         );
     }

@@ -5,47 +5,42 @@ import {Observable} from "rxjs";
 import {Order} from "../model/order";
 import {DeliveryOrderProducts} from "../model/delivery-order-products";
 import {Category} from "../model/category";
+import {MainService} from "./main.service";
 
 @Injectable({
     providedIn: 'root'
 })
-export class OrderService {
-    baseUrl: string = "http://localhost:8080/api";
-    options = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-        })
-    };
-
+export class OrderService extends MainService {
     constructor(private httpClient: HttpClient) {
+        super();
     }
 
     getOrders() {
-        return this.httpClient.get(this.baseUrl + '/order');
+        return this.httpClient.get(this.apiUrl + '/order');
     }
 
     createOrder(order: Order): Observable<Order> {
-        return this.httpClient.post<Order>(this.baseUrl + '/order', order, this.options);
+        return this.httpClient.post<Order>(this.apiUrl + '/order', order, this.options);
     }
 
     addProductsToOrder(productsOrder: DeliveryOrderProducts) {
-        return this.httpClient.post<DeliveryOrderProducts>(this.baseUrl + '/orderProduct/addMultiple', productsOrder, this.options);
+        return this.httpClient.post<DeliveryOrderProducts>(this.apiUrl + '/orderProduct/addMultiple', productsOrder, this.options);
     }
 
     getProductsByOrder(id: number) {
-        return this.httpClient.get(this.baseUrl + '/orderProduct/order/' + id);
+        return this.httpClient.get(this.apiUrl + '/orderProduct/order/' + id);
     }
 
     getOrder(id: number): Observable<Order> {
-        return this.httpClient.get<Order>(this.baseUrl + '/order/' + id);
+        return this.httpClient.get<Order>(this.apiUrl + '/order/' + id);
     }
 
     updateOrder(order: Order): Observable<Order> {
-        return this.httpClient.put<Order>(this.baseUrl + '/order/' + order.id, order, this.options);
+        return this.httpClient.put<Order>(this.apiUrl + '/order/' + order.id, order, this.options);
     }
 
     deleteOrder(id: number) {
-        return this.httpClient.delete(this.baseUrl + '/order/' + id);
+        return this.httpClient.delete(this.apiUrl + '/order/' + id);
     }
 
 }

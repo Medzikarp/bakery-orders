@@ -16,6 +16,11 @@
     <div fxLayout="row" fxShow="false" fxShow.gt-sm>
         <button mat-button routerLink="/order">Orders</button>
     </div>
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+        <button mat-button [matMenuTriggerFor]="userMenu">
+            <mat-icon>account_circle</mat-icon> {{userName}} <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+    </div>
     <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>
     </button>
@@ -25,6 +30,10 @@
     <button mat-menu-item routerLink="/product">Products</button>
     <button mat-menu-item routerLink="/category">Categories</button>
     <button mat-menu-item routerLink="/order">Orders</button>
+</mat-menu>
+<mat-menu #userMenu="matMenu">
+    <button mat-menu-item (click)="onClickEditProfile()">Edit profile</button>
+    <button mat-menu-item (click)="onClickLogout()">Logout</button>
 </mat-menu>
 <div class="full-width-page">
     <router-outlet></router-outlet>

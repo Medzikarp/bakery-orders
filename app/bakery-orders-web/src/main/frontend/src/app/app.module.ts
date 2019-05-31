@@ -25,7 +25,7 @@ const appRoutes: Routes = [
         path: '',
         component: HomeComponent,
         canActivate: [AppAuthGuard],
-        data: { roles: ['ADMIN', 'CUSTOMER'] }
+        data: { roles: ['CUSTOMER'] }
     },
     {
         path: 'product',

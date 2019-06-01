@@ -58,7 +58,9 @@
                             </mat-card-content>
 
                             <mat-card-actions fxLayout="row" fxLayoutAlign="end center">
-                                <a mat-button [routerLink]="['/product/', product.id]">Detail</a>
+                                <div *ngIf="isAdmin()">
+                                    <a mat-button [routerLink]="['/product/', product.id]">Detail</a>
+                                </div>
                             </mat-card-actions>
 
                         </mat-card>

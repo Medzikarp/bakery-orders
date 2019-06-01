@@ -31,7 +31,7 @@ const appRoutes: Routes = [
         path: 'product',
         component: ProductComponent,
         canActivate: [AppAuthGuard],
-        data: { roles: ['ADMIN', 'CUSTOMER'] }
+        data: { roles: ['ADMIN'] }
     },
     {
         path: 'product/create',
@@ -43,13 +43,13 @@ const appRoutes: Routes = [
         path: 'product/:id',
         component: ProductCreateComponent,
         canActivate: [AppAuthGuard],
-        data: { roles: ['ADMIN', 'CUSTOMER'] }
+        data: { roles: ['ADMIN'] }
     },
     {
         path: 'category',
         component: CategoryComponent,
         canActivate: [AppAuthGuard],
-        data: { roles: ['ADMIN', 'CUSTOMER'] }
+        data: { roles: ['ADMIN'] }
     },
     {
         path: 'category/create',
@@ -61,7 +61,7 @@ const appRoutes: Routes = [
         path: 'category/:id',
         component: CategoryCreateComponent,
         canActivate: [AppAuthGuard],
-        data: { roles: ['ADMIN', 'CUSTOMER'] }
+        data: { roles: ['ADMIN'] }
     },
     {
         path: 'order/create',

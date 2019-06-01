@@ -7,18 +7,24 @@
 
     <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
-    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-        <button mat-button routerLink="/product">Products</button>
+    <div *ngIf="isAdmin()">
+        <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+            <button mat-button routerLink="/product">Products</button>
+        </div>
     </div>
-    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-        <button mat-button routerLink="/category">Categories</button>
+    <div *ngIf="isAdmin()">
+        <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+            <button mat-button routerLink="/category">Categories</button>
+        </div>
     </div>
     <div fxLayout="row" fxShow="false" fxShow.gt-sm>
         <button mat-button routerLink="/order">Orders</button>
     </div>
     <div fxLayout="row" fxShow="false" fxShow.gt-sm>
         <button mat-button [matMenuTriggerFor]="userMenu">
-            <mat-icon>account_circle</mat-icon> {{userName}} <mat-icon>arrow_drop_down</mat-icon>
+            <mat-icon>account_circle</mat-icon>
+            {{userName}}
+            <mat-icon>arrow_drop_down</mat-icon>
         </button>
     </div>
     <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>

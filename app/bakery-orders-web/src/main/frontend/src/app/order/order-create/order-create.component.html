@@ -2,7 +2,10 @@
     <div class="order-create-container">
         <h1 class="mat-h1">
             <div *ngIf="order.id == null || isOrderCopied(); else updateHeader">Add order</div>
-            <ng-template #updateHeader>Update order</ng-template>
+            <ng-template #updateHeader>
+                <div *ngIf="order.state == 'UNCONFIRMED'; else viewHeader">Update order</div>
+                <ng-template #viewHeader >View order</ng-template>
+            </ng-template>
         </h1>
         <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
 
@@ -25,13 +28,23 @@
                 </mat-form-field>
             </div>
 
-            <button type="button" class="margin-right margin-bottom" mat-raised-button color="primary" (click)="addProduct()">Add product</button>
-            <button type="button" mat-raised-button color="warn" (click)="deleteProduct()">Delete product</button>
-
+            <div *ngIf="order.state == 'UNCONFIRMED' || isAdmin()">
+                <button type="button" class="margin-right margin-bottom" mat-raised-button color="primary" (click)="addProduct()">Add product</button>
+                <button type="button" mat-raised-button color="warn" (click)="deleteProduct()">Delete product</button>
+            </div>
             <mat-form-field class="example-full-width">
                 <input matInput placeholder="Total cost" formControlName="total">
             </mat-form-field>
 
+
+            <mat-form-field class="example-full-width">
+                <mat-select placeholder="State" formControlName="state">
+                    <mat-option value="CONFIRMED">Confirmed</mat-option>
+                    <mat-option value="UNCONFIRMED">Unconfirmed</mat-option>
+                    <mat-option value="REFUSED">Refused</mat-option>
+                    <mat-option value="PAID">Paid</mat-option>
+                </mat-select>
+            </mat-form-field>
 
             <button class="example-full-width" mat-raised-button color="primary" [disabled]="checkValid()">
                 <div *ngIf="order.id == null || isOrderCopied(); else updateButton">Add</div>

@@ -63,7 +63,6 @@ public class DeliveryOrderEndpoint {
         DeliveryOrder oldDeliveryOrder = deliveryOrderService.findById(id);
         deliveryOrder.setId(oldDeliveryOrder.getId());
         deliveryOrder.setCreatedAt(oldDeliveryOrder.getCreatedAt());
-        deliveryOrder.setState(oldDeliveryOrder.getState());
         try {
             DeliveryOrder updated = deliveryOrderService.update(deliveryOrder);
             builder = Response.ok(updated);

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OrderService} from "../services/order.service";
+import {KeycloakService} from "keycloak-angular";
 
 
 @Component({
@@ -13,14 +14,8 @@ export class OrderComponent implements OnInit {
     dataSource;
     dateFormat = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
 
-    constructor(private orderService: OrderService) {
-        this.orderService.getOrders().subscribe(
-            orders => {
-                this.dataSource = orders;
-                this.processAttributes();
-            },
-            error => console.log(error)
-        );
+    constructor(private orderService: OrderService, private keycloak: KeycloakService) {
+        this.fetchOrders();
     }
 
     ngOnInit() {
@@ -38,5 +33,17 @@ export class OrderComponent implements OnInit {
         this.orderService.deleteOrder(id).subscribe(() => this.dataSource = this.dataSource.filter(item => item.id != id));
     }
 
+    isAdmin() {
+        return this.keycloak.isUserInRole('ADMIN');
+    }
+
+    private fetchOrders() {
+        this.orderService.getOrders().subscribe(
+            orders => {
+                this.dataSource = orders;
+                this.processAttributes();
+            }
+        );
+    }
 
 }

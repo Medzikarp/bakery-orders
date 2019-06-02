@@ -29,6 +29,7 @@
         <wildfly.version>8.2.0.Final</wildfly.version>
         <version.org.jboss.logging>3.2.0.Final</version.org.jboss.logging>
         <version.org.jboss.logging.annotations>2.0.1.Final</version.org.jboss.logging.annotations>
+        <version.thorntail>2.4.0.Final</version.thorntail>
     </properties>
 
     <parent>
@@ -200,6 +201,39 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>bom</artifactId>
+            <version>${version.thorntail}</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>jaxrs</artifactId>
+            <scope>provided</scope>
+            <version>${version.thorntail}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>cdi</artifactId>
+            <scope>provided</scope>
+            <version>${version.thorntail}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>messaging</artifactId>
+            <scope>provided</scope>
+            <version>${version.thorntail}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>ejb</artifactId>
+            <scope>provided</scope>
+            <version>${version.thorntail}</version>
+        </dependency>
+
     </dependencies>
     <repositories>
         <!-- The JBoss Community public repository is a composite repository of several major repositories -->
@@ -256,8 +290,22 @@
                         <derby.stream.error.file>
                             ${project.build.directory}/derby.log
                         </derby.stream.error.file>
+
                     </systemPropertyVariables>
+
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.thorntail</groupId>
+                <artifactId>thorntail-maven-plugin</artifactId>
+                <version>${version.thorntail}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

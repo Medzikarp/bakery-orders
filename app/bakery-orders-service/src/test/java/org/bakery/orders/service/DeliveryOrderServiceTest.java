@@ -2,6 +2,7 @@ package org.bakery.orders.service;
 
 import org.bakery.orders.builder.UserBuilder;
 import org.bakery.orders.entity.DeliveryOrder;
+import org.bakery.orders.entity.State;
 import org.bakery.orders.entity.User;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -68,6 +69,7 @@ public class DeliveryOrderServiceTest {
         deliveryOrder.setUser(user);
         deliveryOrder.setName("Objednavka 1");
         deliveryOrder.setCreatedAt(LocalDateTime.now());
+        deliveryOrder.setState(State.UNCONFIRMED);
         return deliveryOrder;
     }
 

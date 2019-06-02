@@ -4,4 +4,5 @@ export class Order {
     id: number;
     name: String;
     user: User;
+    state: String;
 }

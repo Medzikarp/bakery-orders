@@ -16,8 +16,23 @@
 
 .example-full-width {
     width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 td {
     padding-right: 8px;
+}
+
+.margin-right {
+    margin-right: 12px;
+}
+
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
+
+.container {
+    margin-top: 80px;
 }

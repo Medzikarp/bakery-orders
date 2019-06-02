@@ -1,0 +1,44 @@
+.paginator {
+    margin: 0 20px 20px 20px;
+}
+
+.card-deck-container {
+    border-radius: 2px;
+    padding: 10px 10px 30px;
+}
+
+.card-item {
+    padding: 8px 8px 8px 8px;
+}
+
+.card-container {
+    padding: 10px 10px 10px;
+    margin: 0 30px 0 30px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.container {
+    margin-top: 130px;
+}
+
+.form-field {
+    margin-right: 20px;
+}
+
+.filter-container {
+    margin: 0 30px 20px 30px;
+}
+
+.smaller-progress-bar {
+    margin: 0 30px 0 30px;
+}
+
+.mat-h1 {
+    margin: 0 30px 0 30px;
+}
+
+
+.card-text-content {
+    margin-top: 10px;
+}

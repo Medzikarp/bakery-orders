@@ -28,8 +28,9 @@ public class DeliveryOrder extends PersistentObject {
     @Column
     private LocalDateTime updatedAt;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(length = 8)
+    @Column(length = 20)
     private State state;
 
     public State getState() {
@@ -88,9 +89,3 @@ public class DeliveryOrder extends PersistentObject {
     }
 }
 
-enum State {
-    CONFIRMED,
-    UNCONFIRMED,
-    REFUSED,
-    PAID
-}

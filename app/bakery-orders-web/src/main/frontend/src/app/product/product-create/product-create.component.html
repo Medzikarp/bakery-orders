@@ -1,48 +1,54 @@
-<div class="product-create-container">
-    <h1 class="mat-h1">
-        <div *ngIf="product.id == null; else updateHeader">Add product</div>
-        <ng-template #updateHeader>Update product</ng-template>
-    </h1>
-    <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Name" formControlName="name" required>
-            <mat-error *ngIf="form.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
-        </mat-form-field>
+<div fxLayout="column" fxLayoutAlign="start center" class="container">
+    <div class="product-create-container">
+        <h1 class="mat-h1">
+            <div *ngIf="product.id == null; else updateHeader">Add product</div>
+            <ng-template #updateHeader>Update product</ng-template>
+        </h1>
+        <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Name" formControlName="name" required>
+                <mat-error *ngIf="form.get('name').invalid">{{getNameErrorMessage()}}</mat-error>
+            </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-            <input matInput type="number" placeholder="Cost" formControlName="cost" required min="0">
-            <mat-error *ngIf="form.get('cost').invalid">{{getCostErrorMessage()}}</mat-error>
-        </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input matInput type="number" placeholder="Cost" formControlName="cost" required min="0" (change)="onTotalCostChange()" (keyup)="onTotalCostChange()">
+                <mat-error *ngIf="form.get('cost').invalid">{{getCostErrorMessage()}}</mat-error>
+            </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-            <input matInput type="number" placeholder="Tax" formControlName="tax" required min="0">
-            <mat-error *ngIf="form.get('cost').invalid">{{getTaxErrorMessage()}}</mat-error>
-        </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input matInput type="number" placeholder="Tax" formControlName="tax" required min="0" (change)="onTotalCostChange()" (keyup)="onTotalCostChange()">
+                <mat-error *ngIf="form.get('cost').invalid">{{getTaxErrorMessage()}}</mat-error>
+            </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-            <textarea matInput required minlength="5" maxlength="200" formControlName="description" placeholder="Description"></textarea>
-            <mat-error *ngIf="form.get('description').invalid">{{getDescriptionErrorMessage()}}</mat-error>
-        </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input matInput disabled placeholder="Total cost" formControlName="total">
+            </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-            <mat-select placeholder="Categories" formControlName="categories" multiple [compareWith]="compareCategories">
-                <mat-option *ngFor="let category of categoriesList" [value]="category">{{category.name}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <textarea matInput required minlength="5" maxlength="200" formControlName="description" placeholder="Description"></textarea>
+                <mat-error *ngIf="form.get('description').invalid">{{getDescriptionErrorMessage()}}</mat-error>
+            </mat-form-field>
 
-        <div *ngIf="tmpImg != null">
-            <img [src]="tmpImg" width="100%">
-        </div>
+            <mat-form-field class="example-full-width">
+                <mat-select placeholder="Categories" formControlName="categories" multiple [compareWith]="compareCategories">
+                    <mat-option *ngFor="let category of categoriesList" [value]="category">{{category.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field class="example-full-width">
-            <ngx-mat-file-input formControlName="file" placeholder="Product image" (change)="onFileSelected($event)"></ngx-mat-file-input>
-            <mat-icon matSuffix>folder</mat-icon>
-            <mat-error *ngIf="form.get('file').invalid">{{getFileErrorMessage()}}</mat-error>
-        </mat-form-field>
+            <div *ngIf="tmpImg != null">
+                <img [src]="tmpImg" width="100%">
+            </div>
 
-        <button id="submit-button" class="example-full-width" mat-raised-button color="primary" [disabled]="!form.valid">
-            <div *ngIf="product.id == null; else updateButton">Add</div>
-            <ng-template #updateButton>Update</ng-template>
-        </button>
-    </form>
+            <mat-form-field class="example-full-width">
+                <ngx-mat-file-input formControlName="file" placeholder="Product image" (change)="onFileSelected($event)"></ngx-mat-file-input>
+                <mat-icon matSuffix>folder</mat-icon>
+                <mat-error *ngIf="form.get('file').invalid">{{getFileErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <button id="submit-button" class="example-full-width" mat-raised-button color="primary" [disabled]="!form.valid">
+                <div *ngIf="product.id == null; else updateButton">Add</div>
+                <ng-template #updateButton>Update</ng-template>
+            </button>
+        </form>
+    </div>
 </div>

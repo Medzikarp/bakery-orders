@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MaterialModule} from './material-module';
@@ -13,18 +13,80 @@ import {CategoryComponent} from './category/category.component';
 import {CategoryCreateComponent} from './category/category-create/category-create.component';
 import {MaterialFileInputModule} from 'ngx-material-file-input';
 import {OrderComponent} from './order/order.component';
-import { OrderCreateComponent } from './order/order-create/order-create.component';
+import {OrderCreateComponent} from './order/order-create/order-create.component';
+import {KeycloakService, KeycloakAngularModule} from "keycloak-angular";
+import {initializer} from "./app-init";
+import {AppAuthGuard} from "./app.auth-guard";
+
 
 const appRoutes: Routes = [
-    {path: '', component: HomeComponent},
-    {path: 'product', component: ProductComponent},
-    {path: 'product/create', component: ProductCreateComponent},
-    {path: 'product/:id', component: ProductCreateComponent},
-    {path: 'category', component: CategoryComponent},
-    {path: 'category/create', component: CategoryCreateComponent},
-    {path: 'category/:id', component: CategoryCreateComponent},
-    {path: 'order/create', component: OrderCreateComponent},
-    {path: 'order', component: OrderComponent}
+
+    {
+        path: '',
+        component: HomeComponent,
+        canActivate: [AppAuthGuard],
+        data: { roles: ['CUSTOMER'] }
+    },
+    {
+        path: 'product',
+        component: ProductComponent,
+        canActivate: [AppAuthGuard],
+        data: { roles: ['ADMIN'] }
+    },
+    {
+        path: 'product/create',
+        component: ProductCreateComponent,
+        canActivate: [AppAuthGuard],
+        data: { roles: ['ADMIN'] }
+    },
+    {
+        path: 'product/:id',
+        component: ProductCreateComponent,
+        canActivate: [AppAuthGuard],
+        data: { roles: ['ADMIN'] }
+    },
+    {
+        path: 'category',
+        component: CategoryComponent,
+        canActivate: [AppAuthGuard],
+        data: { roles: ['ADMIN'] }
+    },
+    {
+        path: 'category/create',
+        component: CategoryCreateComponent,
+        canActivate: [AppAuthGuard],
+        data: { roles: ['ADMIN'] }
+    },
+    {
+        path: 'category/:id',
+        component: CategoryCreateComponent,
+        canActivate: [AppAuthGuard],
+        data: { roles: ['ADMIN'] }
+    },
+    {
+        path: 'order/create',
+        component: OrderCreateComponent,
+        canActivate: [AppAuthGuard],
+        data: { roles: ['ADMIN', 'CUSTOMER'] }
+    },
+    {
+        path: 'order/copy/:id',
+        component: OrderCreateComponent,
+        canActivate: [AppAuthGuard],
+        data: { roles: ['ADMIN', 'CUSTOMER'] }
+    },
+    {
+        path: 'order/:id',
+        component: OrderCreateComponent,
+        canActivate: [AppAuthGuard],
+        data: { roles: ['ADMIN', 'CUSTOMER'] }
+    },
+    {
+        path: 'order',
+        component: OrderComponent,
+        canActivate: [AppAuthGuard],
+        data: { roles: ['ADMIN', 'CUSTOMER'] }
+    }
 
 ];
 
@@ -48,9 +110,18 @@ const appRoutes: Routes = [
             appRoutes
         ),
         HttpClientModule,
-        MaterialFileInputModule
+        MaterialFileInputModule,
+        KeycloakAngularModule
     ],
-    providers: [],
+    providers: [
+        AppAuthGuard,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initializer,
+            multi: true,
+            deps: [KeycloakService]
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

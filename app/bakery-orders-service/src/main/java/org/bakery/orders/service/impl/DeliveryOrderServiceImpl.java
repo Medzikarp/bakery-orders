@@ -4,6 +4,7 @@ import org.bakery.orders.dao.DeliveryOrderDao;
 import org.bakery.orders.dao.DeliveryOrderProductDao;
 import org.bakery.orders.dao.UserDao;
 import org.bakery.orders.entity.DeliveryOrder;
+import org.bakery.orders.entity.State;
 import org.bakery.orders.entity.User;
 import org.bakery.orders.service.DeliveryOrderService;
 import org.jboss.logging.Logger;
@@ -34,6 +35,7 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
     public DeliveryOrder create(DeliveryOrder deliveryOrder) {
         deliveryOrder.setCreatedAt(LocalDateTime.now());
         deliveryOrder.setUpdatedAt();
+        deliveryOrder.setState(State.UNCONFIRMED);
         DeliveryOrder created = deliveryOrderDao.create(deliveryOrder);
         LOGGER.info("DeliveryOrder created with id " + deliveryOrder.getId());
         return created;
@@ -49,6 +51,7 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
     @Override
     public void remove(DeliveryOrder deliveryOrder) {
         LOGGER.info("Removing DeliveryOrder with id " + deliveryOrder.getId());
+        deliveryOrderProductDao.searchByDeliveryOrder(deliveryOrder.getId()).forEach(deliveryOrderProduct -> deliveryOrderProductDao.remove(deliveryOrderProduct.getId()));
         deliveryOrderDao.remove(deliveryOrder.getId());
     }
 

@@ -47,13 +47,12 @@ export class OrderCreateComponent implements OnInit {
         this.form = this.fb.group({
             'name': [null, Validators.required],
             'total': [{value: null, disabled: true}],
-            'state': [null]
+            'state': ['UNCONFIRMED']
         });
     }
 
     onSubmit() {
         let order = this.getOrderFromForm();
-        console.log(order);
         if (this.order.id != null && !this.isOrderCopied()) { // update order
             order.id = this.order.id;
             this.orderService.updateOrder(order).subscribe(order => this.addProductToOrder(order, 'Order updated!'));
@@ -115,6 +114,8 @@ export class OrderCreateComponent implements OnInit {
                 this.productList = products;
                 if (this.order.id != null) {
                     this.fetchProductsOfOrder();
+                } else {
+                    this.form.get('state').disable();
                 }
             }
         )

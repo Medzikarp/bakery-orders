@@ -3,10 +3,7 @@ package org.bakery.orders.entity;
 
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -19,6 +16,10 @@ public class User extends PersistentObject {
 
     @Column
     @NotNull
+    private String keycloakId;
+
+    @Column
+    @NotNull
     @Size(min = 3, max = 40)
     private String name;
 
@@ -27,13 +28,10 @@ public class User extends PersistentObject {
     @NotNull
     private String email;
 
-    @Column
-    @NotNull
-    private String passwordHash;
 
-    @Column
-    @NotNull
-    private String deliveryAddress;
+    //@Column
+    //@NotNull
+    //private String deliveryAddress;
 
     @Column
     @Size(min = 8, max = 14)
@@ -42,6 +40,14 @@ public class User extends PersistentObject {
     @Enumerated(EnumType.STRING)
     @Column(length = 8)
     private UserRole userRole;
+
+    public String getKeycloakId() {
+        return keycloakId;
+    }
+
+    public void setKeycloakId(String keycloakId) {
+        this.keycloakId = keycloakId;
+    }
 
     public String getName() {
         return name;
@@ -59,22 +65,14 @@ public class User extends PersistentObject {
         this.email = email;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public String getDeliveryAddress() {
+    /*public String getDeliveryAddress() {
         return deliveryAddress;
     }
 
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
     }
-
+*/
     public String getPhone() {
         return phone;
     }

@@ -99,11 +99,12 @@ public class DeliveryOrderDaoTest {
     @Test
     public void searchByUserNullTest() {
         expectedException.expect(ConstraintViolationException.class);
-        deliveryOrderDao.searchByUser(null);
+        deliveryOrderDao.searchByKeycloakId(null);
     }
 
     private User getSampleUser() {
         return UserBuilder.anUser().withEmail("test@test.com")
+                .withKeycloakId("bfcdd542-04dc-44b9-94ef-6a172e4e02f7")
                 .withName("Jan Novak")
                 .withPasswordHash("qiyh4XPJGsOZ2MEAyLkfWqeQ")
                 .withDeliveryAddress("Kanadska 3, Brno")

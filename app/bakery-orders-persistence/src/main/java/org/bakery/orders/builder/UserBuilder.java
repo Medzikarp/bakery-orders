@@ -6,6 +6,7 @@ import org.bakery.orders.entity.User;
  * Created by Lukas Kotol on 15.04.2019.
  */
 public final class UserBuilder {
+    private String keycloakId;
     private String name;
     private String email;
     private String passwordHash;
@@ -17,6 +18,11 @@ public final class UserBuilder {
 
     public static UserBuilder anUser() {
         return new UserBuilder();
+    }
+
+    public UserBuilder withKeycloakId(String kcId) {
+        this.keycloakId = kcId;
+        return this;
     }
 
     public UserBuilder withName(String name) {
@@ -46,10 +52,10 @@ public final class UserBuilder {
 
     public User build() {
         User user = new User();
+        user.setKeycloakId(keycloakId);
         user.setName(name);
         user.setEmail(email);
-        user.setPasswordHash(passwordHash);
-        user.setDeliveryAddress(deliveryAddress);
+        //user.setDeliveryAddress(deliveryAddress);
         user.setPhone(phone);
         return user;
     }

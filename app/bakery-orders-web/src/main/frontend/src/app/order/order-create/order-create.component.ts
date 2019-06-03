@@ -66,8 +66,6 @@ export class OrderCreateComponent implements OnInit {
         let order = new Order();
         order.name = this.form.get('name').value;
         order.state = this.form.get('state').value;
-        order.user = new User();
-        order.user.id = 1;
 
         this.productOrders.forEach(productOrder => {
             productOrder.product.id = this.form.get('productOrder' + productOrder.inputId).value;

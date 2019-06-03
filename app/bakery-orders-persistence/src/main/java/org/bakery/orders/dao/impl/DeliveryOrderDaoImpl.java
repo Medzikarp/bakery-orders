@@ -23,10 +23,10 @@ public class DeliveryOrderDaoImpl extends GenericDaoImpl<DeliveryOrder, Long> im
     }
 
     @Override
-    public List<DeliveryOrder> searchByUser(@NotNull Long id) {
+    public List<DeliveryOrder> searchByKeycloakId(@NotNull String keycloakId) {
 
-        TypedQuery<DeliveryOrder> q = em.createQuery("SELECT o FROM DeliveryOrder o WHERE o.user.id = :userId", DeliveryOrder.class)
-                .setParameter("userId", id);
+        TypedQuery<DeliveryOrder> q = em.createQuery("SELECT o FROM DeliveryOrder o WHERE o.user.keycloakId = :keycloakId", DeliveryOrder.class)
+                .setParameter("keycloakId", keycloakId);
         return q.getResultList();
     }
 }

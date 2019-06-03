@@ -2,18 +2,17 @@ package org.bakery.orders.service.impl;
 
 import org.bakery.orders.dao.DeliveryOrderDao;
 import org.bakery.orders.dao.DeliveryOrderProductDao;
-import org.bakery.orders.dao.UserDao;
 import org.bakery.orders.entity.DeliveryOrder;
 import org.bakery.orders.entity.State;
-import org.bakery.orders.entity.User;
 import org.bakery.orders.service.DeliveryOrderService;
 import org.jboss.logging.Logger;
+import org.keycloak.representations.AccessToken;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Lukas Kotol on 04.04.2019.
@@ -77,8 +76,13 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
     }
 
     @Override
-    public List<DeliveryOrder> searchByUser(Long id) {
-        LOGGER.info("Searching for all DeliveryOrders with user id " + id);
-        return deliveryOrderDao.searchByUser(id);
+    public List<DeliveryOrder> searchByUser(AccessToken accessToken) {
+        AccessToken.Access access = accessToken.getRealmAccess();
+        Set<String> roles = access.getRoles();
+        if (roles.contains("ADMIN")) {
+            return deliveryOrderDao.findAll();
+        }
+        LOGGER.info("Listing orders for user keycloakId: " + accessToken.getId());
+        return deliveryOrderDao.searchByKeycloakId(accessToken.getId());
     }
 }

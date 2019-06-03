@@ -47,6 +47,7 @@ public class DatabaseSetup {
     @PostConstruct
     public void init() {
         User user1 = UserBuilder.anUser()
+                .withKeycloakId("bfcdd542-04dc-44b9-94ef-6a172e4e02f7")
                 .withEmail("test@test.com")
                 .withName("User 1")
                 .withPasswordHash("qiyh4XPJGsOZ2MEAyLkfWqeQ")

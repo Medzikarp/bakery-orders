@@ -72,6 +72,7 @@ public class UserDaoTest {
 
     private User getSampleUser() {
         return  UserBuilder.anUser()
+                .withKeycloakId("bfcdd542-04dc-44b9-94ef-6a172e4e02f7")
                 .withEmail("test@test.com")
                 .withName("Jan Novak")
                 .withPasswordHash("qiyh4XPJGsOZ2MEAyLkfWqeQ")

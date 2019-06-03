@@ -2,16 +2,13 @@ package org.bakery.orders.service.impl;
 
 import org.bakery.orders.dao.DeliveryOrderDao;
 import org.bakery.orders.dao.DeliveryOrderProductDao;
-import org.bakery.orders.dao.UserDao;
 import org.bakery.orders.entity.DeliveryOrder;
 import org.bakery.orders.entity.State;
-import org.bakery.orders.entity.User;
 import org.bakery.orders.service.DeliveryOrderService;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -77,8 +74,9 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
     }
 
     @Override
-    public List<DeliveryOrder> searchByUser(Long id) {
-        LOGGER.info("Searching for all DeliveryOrders with user id " + id);
-        return deliveryOrderDao.searchByUser(id);
+    public List<DeliveryOrder> searchByKeycloakId(String keycloakId) {
+        LOGGER.info("Listing orders for user id: " + keycloakId);
+        // TODO list all orders for admin
+        return deliveryOrderDao.searchByUser(keycloakId);
     }
 }

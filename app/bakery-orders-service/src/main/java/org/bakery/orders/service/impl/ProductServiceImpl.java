@@ -91,7 +91,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAll() {
         LOGGER.info("Searching for all Products");
-        return productDao.findAll();
+        List<Product> products = productDao.findAll();
+        LOGGER.info("Found " + products.size() + " products.");
+        return products;
     }
 
     @Override

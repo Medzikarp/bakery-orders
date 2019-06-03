@@ -36,7 +36,7 @@ public class DeliveryOrderEndpoint {
     @GET
     public Response getOrders() {
         List<DeliveryOrder> deliveryOrders;
-        deliveryOrders = deliveryOrderService.searchByKeycloakId(accessToken.getId());
+        deliveryOrders = deliveryOrderService.searchByUser(accessToken);
         return Response.ok(deliveryOrders).build();
     }
 

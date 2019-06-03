@@ -99,7 +99,7 @@ public class DeliveryOrderDaoTest {
     @Test
     public void searchByUserNullTest() {
         expectedException.expect(ConstraintViolationException.class);
-        deliveryOrderDao.searchByUser(null);
+        deliveryOrderDao.searchByKeycloakId(null);
     }
 
     private User getSampleUser() {

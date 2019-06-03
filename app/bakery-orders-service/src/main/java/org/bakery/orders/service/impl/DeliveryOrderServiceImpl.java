@@ -6,11 +6,13 @@ import org.bakery.orders.entity.DeliveryOrder;
 import org.bakery.orders.entity.State;
 import org.bakery.orders.service.DeliveryOrderService;
 import org.jboss.logging.Logger;
+import org.keycloak.representations.AccessToken;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Lukas Kotol on 04.04.2019.
@@ -74,9 +76,13 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
     }
 
     @Override
-    public List<DeliveryOrder> searchByKeycloakId(String keycloakId) {
-        LOGGER.info("Listing orders for user id: " + keycloakId);
-        // TODO list all orders for admin
-        return deliveryOrderDao.searchByUser(keycloakId);
+    public List<DeliveryOrder> searchByUser(AccessToken accessToken) {
+        AccessToken.Access access = accessToken.getRealmAccess();
+        Set<String> roles = access.getRoles();
+        if (roles.contains("ADMIN")) {
+            return deliveryOrderDao.findAll();
+        }
+        LOGGER.info("Listing orders for user keycloakId: " + accessToken.getId());
+        return deliveryOrderDao.searchByKeycloakId(accessToken.getId());
     }
 }

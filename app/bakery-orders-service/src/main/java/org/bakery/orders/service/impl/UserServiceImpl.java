@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void remove(User user) {
         LOGGER.info("Removing User with id " + user.getId());
-        deliveryOrderDao.searchByUser(user.getKeycloakId()).forEach(deliveryOrder -> {
+        deliveryOrderDao.searchByKeycloakId(user.getKeycloakId()).forEach(deliveryOrder -> {
             deliveryOrder.setUser(null);
             deliveryOrderDao.update(deliveryOrder);
         });
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void removeAll() {
         LOGGER.info("Removing all Users");
-        userDao.findAll().forEach(user -> deliveryOrderDao.searchByUser(user.getKeycloakId()).forEach(deliveryOrder -> {
+        userDao.findAll().forEach(user -> deliveryOrderDao.searchByKeycloakId(user.getKeycloakId()).forEach(deliveryOrder -> {
             deliveryOrder.setUser(null);
             deliveryOrderDao.update(deliveryOrder);
         }));

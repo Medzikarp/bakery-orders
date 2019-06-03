@@ -23,7 +23,7 @@ public class DeliveryOrderDaoImpl extends GenericDaoImpl<DeliveryOrder, Long> im
     }
 
     @Override
-    public List<DeliveryOrder> searchByUser(@NotNull String keycloakId) {
+    public List<DeliveryOrder> searchByKeycloakId(@NotNull String keycloakId) {
 
         TypedQuery<DeliveryOrder> q = em.createQuery("SELECT o FROM DeliveryOrder o WHERE o.user.keycloakId = :keycloakId", DeliveryOrder.class)
                 .setParameter("keycloakId", keycloakId);

@@ -7,6 +7,8 @@ import {MatPaginator, MatSnackBar} from "@angular/material";
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {FormControl} from "@angular/forms";
+import {MainService} from "../services/main.service";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
     selector: 'app-home',
@@ -26,8 +28,9 @@ export class HomeComponent implements OnInit {
     categorizedProducts: Array<Product>;
     fetchingProducts: boolean = true;
     selectOrder = new FormControl();
+    imagesUrl: string = this.mainService.baseUrl + 'images/products/';
 
-    constructor(private productService: ProductService, private  categoryService: CategoryService, private snackBar: MatSnackBar) {
+    constructor(private productService: ProductService, private  categoryService: CategoryService, private snackBar: MatSnackBar, private mainService: MainService, protected keycloakService: KeycloakService) {
         this.fetchProducts();
         this.fetchCategories();
     }
@@ -137,6 +140,10 @@ export class HomeComponent implements OnInit {
         } else {
             return this.nonMutationSortDesc(products);
         }
+    }
+
+    isAdmin(): boolean {
+        return this.keycloakService.isUserInRole('ADMIN');
     }
 
 }

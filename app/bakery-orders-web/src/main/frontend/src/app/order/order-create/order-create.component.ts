@@ -9,6 +9,7 @@ import {User} from "../../model/user";
 import {ProductOrder} from "../../model/product-order";
 import {Product} from "../../model/product";
 import {DeliveryOrderProducts} from "../../model/delivery-order-products";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
     selector: 'app-order-create',
@@ -27,7 +28,8 @@ export class OrderCreateComponent implements OnInit {
                 private fb: FormBuilder,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
-                private snackBar: MatSnackBar) {
+                private snackBar: MatSnackBar,
+                private keycloak: KeycloakService) {
 
 
         if (this.activatedRoute.snapshot.params.id) {
@@ -44,7 +46,8 @@ export class OrderCreateComponent implements OnInit {
     private createForm() {
         this.form = this.fb.group({
             'name': [null, Validators.required],
-            'total': [{value: null, disabled: true}]
+            'total': [{value: null, disabled: true}],
+            'state': ['UNCONFIRMED']
         });
     }
 
@@ -62,6 +65,7 @@ export class OrderCreateComponent implements OnInit {
     private getOrderFromForm(): Order {
         let order = new Order();
         order.name = this.form.get('name').value;
+        order.state = this.form.get('state').value;
         order.user = new User();
         order.user.id = 1;
 
@@ -109,7 +113,9 @@ export class OrderCreateComponent implements OnInit {
             products => {
                 this.productList = products;
                 if (this.order.id != null) {
-                    this.fetchExistingOrder();
+                    this.fetchProductsOfOrder();
+                } else {
+                    this.form.get('state').disable();
                 }
             }
         )
@@ -137,6 +143,22 @@ export class OrderCreateComponent implements OnInit {
     }
 
     private fetchExistingOrder() {
+        this.orderService.getOrder(this.order.id).subscribe(
+            data => {
+                this.order = data;
+                this.form.get('name').setValue(data.name);
+                this.form.get('state').setValue(this.order.state);
+                if (!this.isAdmin()) {
+                    this.form.get('state').disable();
+                    if (this.order.state != 'UNCONFIRMED') {
+                        this.form.disable();
+                    }
+                }
+            }
+        );
+    }
+
+    private fetchProductsOfOrder() {
         this.orderService.getProductsByOrder(this.order.id).subscribe(
             data => {
                 for (let dataKey in data) {
@@ -148,12 +170,7 @@ export class OrderCreateComponent implements OnInit {
                     this.productOrders.push(productOrder);
                 }
                 this.form.get('total').setValue(this.computeOrderTotalCost());
-            }
-        );
-        this.orderService.getOrder(this.order.id).subscribe(
-            data => {
-                this.order = data;
-                this.form.get('name').setValue(data.name);
+                this.fetchExistingOrder();
             }
         );
     }
@@ -187,6 +204,10 @@ export class OrderCreateComponent implements OnInit {
 
     isOrderCopied(): boolean {
         return this.activatedRoute.snapshot.url[1] != undefined && this.activatedRoute.snapshot.url[1].path == 'copy';
+    }
+
+    isAdmin() {
+        return this.keycloak.isUserInRole('ADMIN');
     }
 
 

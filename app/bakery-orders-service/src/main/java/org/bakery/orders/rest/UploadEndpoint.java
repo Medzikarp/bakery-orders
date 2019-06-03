@@ -20,7 +20,13 @@ public class UploadEndpoint {
     @Path("/image")
     @Consumes("multipart/form-data")
     public Response uploadImage(@MultipartForm File file) {
-        uploadService.uploadImage(file.getData(), file.getName(), file.getType(), file.getFolder());
-        return Response.status(200).build();
+        Response.ResponseBuilder builder;
+        try {
+            uploadService.uploadImage(file.getData(), file.getName(), file.getType(), file.getFolder());
+            builder = Response.ok();
+        } catch (Exception e) {
+            builder = Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage());
+        }
+        return builder.build();
     }
 }

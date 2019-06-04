@@ -1,5 +1,5 @@
-# bakery-orders
-PV243 Ordering applications for bakery products 
+# bakery-orders 
+PV243 Ordering applications for bakery products - [bakery-orders](https://github.com/Medzikarp/bakery-orders)
 
 Application by which users can order delivery of products from bakery. There are two roles: administrator and customer.
 Administrator is supposed to manage products, categories and orders.
